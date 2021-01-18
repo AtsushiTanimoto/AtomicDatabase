@@ -1,4 +1,4 @@
-	Z	Initial_Ion	Initial Level	Final_Ion	Final Level	N	L	2S+1	Energy (Ry)	Cross Section (Mb)
+	Z	Initial_Ion	Initial_Level	Final_Ion	Final_Level	N	L	2S+1	Energy (Ry)	Cross Section (Mb)
 5685	14	94	21	95	1	12	0	2	0.000000e+00	2.047000e+01
 5686	14	94	21	95	1	12	0	2	9.295220e-02	1.474000e+01
 5687	14	94	21	95	1	12	0	2	2.010710e-01	1.061000e+01
