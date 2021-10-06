@@ -7,6 +7,7 @@ import pfac.fac
 import PopulationData
 import RecombinationRate
 import subprocess
+import TemperatureDensityGrid
 import TransitionData
 
 
@@ -34,14 +35,6 @@ if __name__=="__main__":
             Level = LevelData.LevelData()
             Level.write(i,j)
 
-            logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Recombination = RecombinationRate.RecombinationRate()
-            Recombination.write(i,j,temperatures)
-
-            logger.info("{0:s}{1:02d} TransitionData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Transition = TransitionData.TransitionData()
-            Transition.write(i,j)
-
             logger.info("{0:s}{1:02d} LineEmissivity...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Line = LineEmissivity.LineEmissivity()
             Line.write(i,j,temperatures,densities)
@@ -49,3 +42,15 @@ if __name__=="__main__":
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Population = PopulationData.PopulationData()
             Population.write(i,j,temperatures,densities)
+            
+            logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Recombination = RecombinationRate.RecombinationRate()
+            Recombination.write(i,j,temperatures)
+
+            logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Grid = TemperatureDensityGrid.TemperatureDensityGrid()
+            Grid.write(i,j,temperatures,densities)
+
+            logger.info("{0:s}{1:02d} TransitionData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Transition = TransitionData.TransitionData()
+            Transition.write(i,j)
