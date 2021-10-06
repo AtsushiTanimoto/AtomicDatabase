@@ -12,7 +12,7 @@ class PopulationData:
         for i in range(len(temperatures)):
             for j in range(len(densities)):
                 with open("../database02/{0:s}/{0:s}{1:02d}_spec/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
-                    with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="w") as fout:
+                    with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i02.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="w") as fout:
                         for line in fin.readlines():
                             data = line.split()
                             if len(data)==6:
