@@ -1,5 +1,6 @@
 import AutoionizationData
 import LevelData
+import LineProbability
 import logging
 import numpy
 import pfac.fac
@@ -33,6 +34,10 @@ if __name__=="__main__":
             logger.info("{0:s}{1:02d} LevelData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Level = LevelData.LevelData()
             Level.write(i,j)
+
+            logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Line = LineProbability.LineProbability()
+            Line.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Population = PopulationData.PopulationData()
