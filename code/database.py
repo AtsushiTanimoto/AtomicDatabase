@@ -19,12 +19,12 @@ if __name__=="__main__":
 
 
     for i in range(26,27):
-        for j in range(1,i):
+        for j in range(1,2):
             densities     = numpy.logspace(0,0, 1)
             temperatures  = numpy.logspace(0,3,31)
-            subprocess.call("mkdir ../database02/{0:s}"                  .format(pfac.fac.ATOMICSYMBOL[i]  ),shell=True)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_line".format(pfac.fac.ATOMICSYMBOL[i],j),shell=True)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop" .format(pfac.fac.ATOMICSYMBOL[i],j),shell=True)
+            subprocess.call("mkdir ../database02/{0:s}"                  .format(pfac.fac.ATOMICSYMBOL[i]  ), shell=True)
+            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_line".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
+            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             
             logger.info("{0:s}{1:02d} AutoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Autoionization = AutoionizationData.AutoionizationData()
@@ -34,13 +34,13 @@ if __name__=="__main__":
             Level = LevelData.LevelData()
             Level.write(i,j)
 
-            logger.info("{0:s}{1:02d} TransitionData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Transition = TransitionData.TransitionData()
-            Transition.write(i,j)
-
             logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Recombination = RecombinationRate.RecombinationRate()
             Recombination.write(i,j,temperatures)
+
+            logger.info("{0:s}{1:02d} TransitionData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Transition = TransitionData.TransitionData()
+            Transition.write(i,j)
 
             logger.info("{0:s}{1:02d} LineEmissivity...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Line = LineEmissivity.LineEmissivity()
