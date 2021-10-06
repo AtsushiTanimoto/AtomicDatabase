@@ -1,6 +1,5 @@
 import AutoionizationData
 import LevelData
-import LineEmissivity
 import logging
 import numpy
 import pfac.fac
@@ -34,10 +33,6 @@ if __name__=="__main__":
             logger.info("{0:s}{1:02d} LevelData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Level = LevelData.LevelData()
             Level.write(i,j)
-
-            logger.info("{0:s}{1:02d} LineEmissivity...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Line = LineEmissivity.LineEmissivity()
-            Line.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Population = PopulationData.PopulationData()
