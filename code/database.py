@@ -4,6 +4,7 @@ import LineProbability
 import logging
 import numpy
 import pfac.fac
+import PhotoionizationData
 import PopulationData
 import RecombinationRate
 import subprocess
@@ -39,10 +40,14 @@ if __name__=="__main__":
             Line = LineProbability.LineProbability()
             Line.write(i,j,temperatures,densities)
 
+            logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Photoionization = PhotoionizationData.PhotoionizationData()
+            Photoionization.write(i,j)
+
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Population = PopulationData.PopulationData()
             Population.write(i,j,temperatures,densities)
-            
+       
             logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Recombination = RecombinationRate.RecombinationRate()
             Recombination.write(i,j,temperatures)
