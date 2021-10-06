@@ -13,8 +13,8 @@ class TransitionData:
     
 
     def write(self, atomic_number, electron_number):
-        with open("/Users/tanimoto/github/AtomicDatabase/database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as infile:
-            with open("/Users/tanimoto/github/AtomicDatabase/database02/{0:s}/{0:s}{1:02d}.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as outfile:
+        with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as infile:
+            with open("../database02/{0:s}/{0:s}{1:02d}.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as outfile:
                 for line in infile.readlines():
                     data     = line.split()
                     
