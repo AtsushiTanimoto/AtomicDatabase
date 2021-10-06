@@ -25,23 +25,22 @@ class PhotoionizationData:
             with open("../database02/{0:s}/{0:s}{1:02d}.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
                 for line in fin.readlines():
                     data   = line.split()
-                    energy = numpy.array([])
-                    cross  = numpy.array([])
 
                     if len(data)==4 and data[0]!="Fe":
-                        if len(energy)<=6:
-                            numpy.append(energy, float(data[0])+self.ionization_potential)
-                            numpy.append(cross , 1e-20*float(data[2]))
-                            print(*energy)
+                        energy = numpy.append(energy, float(data[0])+self.ionization_potential)
+                        cross  = numpy.append(cross , 1e-20*float(data[2]))
 
-                        else:
-                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross)[0]
+                        if len(energy)==7:
+                            energy     = energy[1:]
+                            cross      = cross[1:]
+                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+00], maxfev=1000000)[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
-                            print(*parameter)
-     
+ 
                     elif len(data)==6:
+                        energy                    = numpy.array([])
+                        cross                     = numpy.array([])
                         self.bound_level_index    =   int(data[0])
                         self.bound_level_twoj     =   int(data[1])
                         self.ionized_level_index  =   int(data[2])
