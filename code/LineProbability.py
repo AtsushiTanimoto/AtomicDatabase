@@ -16,7 +16,7 @@ class LineProbability:
             for j in range(len(densities)):
                 coefficient = []
 
-                with open("../database02/{0:s}/{0:s}{1:02d}.rates", mode="r") as fin:
+                with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
                     for line in fin.readlines():
                         data         = line.split()
                         coefficient += float(data[2])
