@@ -13,10 +13,10 @@ class TransitionData:
     
 
     def write(self, atomic_number, electron_number):
-        with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as infile:
-            with open("../database02/{0:s}/{0:s}{1:02d}.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as outfile:
-                for line in infile.readlines():
-                    data     = line.split()
+        with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+            with open("../database02/{0:s}/{0:s}{1:02d}.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+                for line in fin.readlines():
+                    data = line.split()
                     
                     if len(data)==8:
                         if 1e-03<=float(data[5]):
@@ -27,4 +27,4 @@ class TransitionData:
                             self.transition_energy              = float(data[4])
                             self.oscillator_strength            = float(data[5])/(1+float(data[3]))
                             self.radiative_decay_rate           = float(data[6])
-                            outfile.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(self.upper_level_index, self.upper_level_statistical_weight, self.lower_level_index, self.lower_level_statistical_weight, self.transition_energy, self.oscillator_strength, self.radiative_decay_rate))
+                            fout.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(self.upper_level_index, self.upper_level_statistical_weight, self.lower_level_index, self.lower_level_statistical_weight, self.transition_energy, self.oscillator_strength, self.radiative_decay_rate))
