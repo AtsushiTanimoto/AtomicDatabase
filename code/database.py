@@ -22,9 +22,9 @@ if __name__=="__main__":
         for j in range(1,2):
             densities     = numpy.logspace(0,0, 1)
             temperatures  = numpy.logspace(0,3,31)
-            subprocess.call("mkdir ../database02/{0:s}"                  .format(pfac.fac.ATOMICSYMBOL[i]  ), shell=True)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_line".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
+            subprocess.call("mkdir ../database02/{0:s}"                 .format(pfac.fac.ATOMICSYMBOL[i]  ), shell=True)
+            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
+            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             
             logger.info("{0:s}{1:02d} AutoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Autoionization = AutoionizationData.AutoionizationData()
