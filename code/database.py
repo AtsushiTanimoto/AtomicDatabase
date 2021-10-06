@@ -21,8 +21,8 @@ if __name__=="__main__":
 
     for i in range(26,27):
         for j in range(1,2):
-            densities     = numpy.logspace(0,0, 1)
-            temperatures  = numpy.logspace(0,3,31)
+            densities     = numpy.logspace(10, 10,  1)
+            temperatures  = numpy.logspace( 0,  3, 31)
             subprocess.call("mkdir ../database02/{0:s}"                 .format(pfac.fac.ATOMICSYMBOL[i]  ), shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
