@@ -1,3 +1,4 @@
+import AutoionizationData
 import LevelData
 import LineEmissivity
 import logging
@@ -17,7 +18,7 @@ if __name__=="__main__":
     logger.addHandler(handler)
 
 
-    for i in range(3,4):
+    for i in range(26,27):
         for j in range(1,i):
             densities     = numpy.logspace(0,0, 1)
             temperatures  = numpy.logspace(0,3,31)
@@ -25,6 +26,10 @@ if __name__=="__main__":
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_line".format(pfac.fac.ATOMICSYMBOL[i],j),shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop" .format(pfac.fac.ATOMICSYMBOL[i],j),shell=True)
             
+            logger.info("{0:s}{1:02d} AutoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Autoionization = AutoionizationData.AutoionizationData()
+            Autoionization.write(i,j)
+
             logger.info("{0:s}{1:02d} LevelData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Level = LevelData.LevelData()
             Level.write(i,j)
