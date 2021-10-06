@@ -16,7 +16,7 @@ class PhotoionizationData:
         self.tau                  = 0.0
     
 
-    def func(self, x, sigma, gamma, tau):
+    def function(self, x, sigma, gamma, tau):
         return sigma*((x/self.ionization_potential)**gamma)*numpy.exp(-x/tau)
 
 
@@ -24,21 +24,23 @@ class PhotoionizationData:
         with open("../database01/{0:s}/{0:s}{1:02d}a.rr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             with open("../database02/{0:s}/{0:s}{1:02d}.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
                 for line in fin.readlines():
-                    data   =  line.split()
-                    cross  = []
-                    energy = []
+                    data   = line.split()
+                    energy = numpy.array([])
+                    cross  = numpy.array([])
 
-                    if len(data)==4:
-                        energy += [      float(data[0])]
-                        cross  += [1e-20*float(data[2])]
+                    if len(data)==4 and data[0]!="Fe":
+                        if len(energy)<=6:
+                            numpy.append(energy, float(data[0])+self.ionization_potential)
+                            numpy.append(cross , 1e-20*float(data[2]))
+                            print(*energy)
 
-                        if len(energy)==6:
-                            parameter  = scipy.optimize.curve_fit(func, energy, cross)[0]
+                        else:
+                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross)[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
-
-                    
+                            print(*parameter)
+     
                     elif len(data)==6:
                         self.bound_level_index    =   int(data[0])
                         self.bound_level_twoj     =   int(data[1])
