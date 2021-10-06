@@ -25,7 +25,7 @@ class LevelData:
                     elif len(data)==9:
                         self.num_electrons          = electron_number
                         self.level_index            =   int(data[0])
-                        self.level_index_of_ionized =   int(data[1])
+                        self.level_index_of_ionized =   -1
                         self.level_energy           = float(data[2])
                         self.parity                 =   int(data[3])
                         self.nl                     =   int(data[4])
