@@ -6,12 +6,12 @@ import subprocess
 
 if __name__=="__main__":
     for i in range(26,27):
-        for j in range(1,2):
+        for j in range(1,11):
             atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
             input_dir     = "../database01/{0:s}/".format(atomic_symbol)
             output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, j)
-            temperatures  = numpy.logspace( 0, 3, 31)
-            densities     = numpy.logspace( 0, 0,  1)
+            temperatures  = numpy.logspace(0, 3, 31)
+            densities     = numpy.logspace(0, 0,  1)
             populations   = 31*[(1+i)*[1.0/(1+i)]]
             subprocess.call("rm -r {0:s}".format(output_dir), shell=True)
             subprocess.call("mkdir {0:s}".format(output_dir), shell=True)
