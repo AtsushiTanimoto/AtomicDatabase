@@ -8,4 +8,4 @@ if __name__=="__main__":
         atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
         directory     = "../database01/{0:s}/".format(atomic_symbol)
         subprocess.call("mkdir {0:s}".format(directory),shell=True)
-        pfac.atom.atomic_data(nele=[14], asym=atomic_symbol, dir=directory)
+        pfac.atom.atomic_data(nele=[15], asym=atomic_symbol, dir=directory)
