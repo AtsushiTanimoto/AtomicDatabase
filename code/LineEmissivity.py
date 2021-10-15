@@ -10,8 +10,8 @@ if __name__=="__main__":
             minimum_energy = 0.0e+00 # eV
             maximum_energy = 1.0e+04 # eV
             threshold      = 0.0e+00
-            temperatures  = numpy.logspace( 0, 3, 31)
-            densities     = numpy.logspace( 0, 0,  1)
+            temperatures   = 1e+00*numpy.logspace( 0,  3, 31)
+            densities      = 1e-10*numpy.logspace(10, 10,  1)
             transitions    = [1, 2, 3, 4, 5, 6, 7, 201, 202, 301, 302, 303, 401, 402, 403, 404, 501, 502, 503, 504, 505, 601, 602, 603, 604, 605, 606, 701, 702, 703, 704, 705, 706, 707]
             input_dir      = "../database01/{0:s}/{0:s}{1:02d}_spec".format(pfac.fac.ATOMICSYMBOL[i], j)
             output_dir     = "../database01/{0:s}/{0:s}{1:02d}_line".format(pfac.fac.ATOMICSYMBOL[i], j)
