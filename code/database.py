@@ -20,7 +20,7 @@ if __name__=="__main__":
     logger.addHandler(handler)
 
     for i in range(26,27):
-        for j in range(1,3):
+        for j in range(1,15):
             densities     = numpy.logspace(10, 10,  1)
             temperatures  = numpy.logspace( 0,  3, 31)
             subprocess.call("mkdir ../database02/{0:s}"                 .format(pfac.fac.ATOMICSYMBOL[i]  ), shell=True)
