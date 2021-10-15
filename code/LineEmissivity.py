@@ -6,7 +6,7 @@ import subprocess
 
 if __name__=="__main__":
     for i in range(26,27):
-        for j in range(11,15):
+        for j in range(1,15):
             minimum_energy = 0.0e+00 # eV
             maximum_energy = 1.0e+04 # eV
             threshold      = 0.0e+00
