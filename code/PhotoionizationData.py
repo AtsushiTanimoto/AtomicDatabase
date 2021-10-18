@@ -26,7 +26,7 @@ class PhotoionizationData:
                 for line in fin.readlines():
                     data   = line.split()
 
-                    if len(data)==4 and data[0]!="Fe":
+                    if len(data)==4 and data[1]!="Z":
                         energy = numpy.append(energy, float(data[0])+self.ionization_potential)
                         cross  = numpy.append(cross , 1e-20*float(data[2]))
 
