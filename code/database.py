@@ -39,17 +39,17 @@ if __name__=="__main__":
             Level = LevelData.LevelData()
             Level.write(i,j)
 
-            logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Line = LineProbability.LineProbability()
-            Line.write(i,j,temperatures,densities)
+            #logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            #Line = LineProbability.LineProbability()
+            #Line.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Photoionization = PhotoionizationData.PhotoionizationData()
             Photoionization.write(i,j)
 
-            logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Population = PopulationData.PopulationData()
-            Population.write(i,j,temperatures,densities)
+            #logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            #Population = PopulationData.PopulationData()
+            #Population.write(i,j,temperatures,densities)
        
             logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Grid = TemperatureDensityGrid.TemperatureDensityGrid()
