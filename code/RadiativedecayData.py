@@ -28,7 +28,7 @@ class RadiativedecayData:
                         self.oscillator_strength            += [float(data[5])/(1+int(data[3]))]
                         self.radiative_decay_rate           += [float(data[6])]
         
-        df = pandas.DataFrame({"upper_level_index": self.upper_level_index, "upper_level_index_statistical_weight": self.upper_level_statistical_weight, "lower_level_index": self.lower_level_index, "lower_level_statistical_weight": self.lower_level_statistical_weight, "transition_energy": self.transition_energy, "oscillator_strength": self.oscillator_strength, "radiative_decay_rate": self.radiative_decay_rate})
+        df = pandas.DataFrame({"upper_level_index": self.upper_level_index, "upper_level_statistical_weight": self.upper_level_statistical_weight, "lower_level_index": self.lower_level_index, "lower_level_statistical_weight": self.lower_level_statistical_weight, "transition_energy": self.transition_energy, "oscillator_strength": self.oscillator_strength, "radiative_decay_rate": self.radiative_decay_rate})
         df.sort_values("upper_level_index", inplace=True)
         df.reset_index(drop=True, inplace=True)
         print(df)
