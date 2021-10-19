@@ -33,7 +33,7 @@ class PhotoionizationData:
                         if len(energy)==7:
                             energy     = energy[1:]
                             cross      = cross[1:]
-                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+00], maxfev=1000000)[0]
+                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+10], maxfev=1000000)[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
