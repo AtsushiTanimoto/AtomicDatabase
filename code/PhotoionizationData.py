@@ -33,11 +33,11 @@ class PhotoionizationData:
                         if len(energy)==7:
                             energy     = energy[1:]
                             cross      = cross[1:]
-                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+00], maxfev=1000000000)[0]
+                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+00], maxfev=1000000)[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
-                            fout.write("{0:6d} {1:3d}   {2:6d} {3:3d}  {4:6d}      {5:11.5e}   {6:10.4e}  {7:10.4e}   {8:10.4e}".format(self.bound_level_index, self.bound_level_twoj, self.ionized_level_index, self.ionized_level_twoj, self.l, self.ionization_potential, self.sigma, self.gamma, self.tau))
+                            fout.write("{0:6d} {1:3d}   {2:6d} {3:3d}  {4:6d}      {5:11.5e}   {6:10.4e}  {7:10.4e}   {8:10.4e}\n".format(self.bound_level_index, self.bound_level_twoj, self.ionized_level_index, self.ionized_level_twoj, self.l, self.ionization_potential, self.sigma, self.gamma, self.tau))
  
                     elif len(data)==6:
                         energy                    = numpy.array([])
@@ -46,5 +46,5 @@ class PhotoionizationData:
                         self.bound_level_twoj     =   int(data[1])
                         self.ionized_level_index  =   int(data[2])
                         self.ionized_level_twoj   =   int(data[3])
-                        self.l                    = float(data[5])
+                        self.l                    =   int(data[5])
                         self.ionization_potential = float(data[4])
