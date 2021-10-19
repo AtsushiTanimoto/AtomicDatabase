@@ -35,7 +35,6 @@ class LineProbability:
                 df = pandas.DataFrame({"num_electrons": self.num_electrons, "lower_level_index": self.lower_level_index, "upper_level_index": self.upper_level_index, "transition_quantum_numbers": self.transition_quantum_numbers, "transition_energy": self.transition_energy, "probability": self.probability})
                 df.sort_values("transition_energy", inplace=True)
                 df.reset_index(drop=True, inplace=True)
-                print(df)
 
                 with open("../database02/{0:s}/{0:s}{1:02d}_ln/{0:s}{1:02d}_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="w") as fout:
                     for k in range(len(df.index)):
