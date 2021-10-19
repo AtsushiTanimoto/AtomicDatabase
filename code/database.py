@@ -5,6 +5,7 @@ import LineProbability
 import PhotoexcitationData
 import PhotoionizationData
 import PopulationData
+import RadiativedecayData
 import RecombinationRate
 import TemperatureDensityGrid
 
@@ -57,8 +58,11 @@ if __name__=="__main__":
             logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Photoionization = PhotoionizationData.PhotoionizationData()
             Photoionization.write(i,j)
+
+            logger.info("{0:s}{1:02d} RadiativedecayData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Radiativedecay = RadiativedecayData.RadiativedecayData()
+            Radiativedecay.write(i,j)
        
             logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Grid = TemperatureDensityGrid.TemperatureDensityGrid()
             Grid.write(i,j,temperatures,densities)
-
