@@ -42,8 +42,8 @@ class PhotoionizationData:
                             if len(energy)==7:
                                 energy     = energy[1:]
                                 cross      = cross[1:]
-                                param      = [1e-20, -2e+00, 1e+05]
-                                parameter  = scipy.optimize.leastsq(func=self.residual, x0=param, maxfev=1000000, args=(energy,cross))[0]
+                                param      = [1e-20, -2e+00, 1e+03]
+                                parameter  = scipy.optimize.least_squares(fun=self.residual, x0=param, bounds=([1e-30,1e-10],[-1e+01,0e+00],[1e+00,1e+01]), max_nfev=1000, args=(energy,cross))[0]
                                 self.sigma = parameter[0]
                                 self.gamma = parameter[1]
                                 self.tau   = parameter[2]
