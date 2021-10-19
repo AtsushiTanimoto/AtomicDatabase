@@ -15,6 +15,7 @@
 *.pop
 *.rates
 *.rb
+%.rd
 *.rr
 *.rt
 *.sp
