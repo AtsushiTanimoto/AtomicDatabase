@@ -1,4 +1,3 @@
-import pandas
 import pfac.fac
 
 
@@ -13,14 +12,14 @@ class RadiativedecayData:
         self.radiative_decay_rate           = 0.0
     
 
-    def write(self, atomic_number, electron_number, temperatures, densities):
+    def write(self, atomic_number, electron_number):
         with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             with open("../database02/{0:s}/{0:s}{1:02d}.rd".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
                 for line in fin.readlines():
                     data = line.split()
                     
                     if len(data)==8:
-                        if int(data[2]) in self.exist_level_index and 1e-03<=float(data[5])/(1+int(data[3])):
+                        if 1e-03<=float(data[5])/(1+int(data[3])):
                             self.upper_level_index              =   int(data[0])
                             self.upper_level_statistical_weight = 1+int(data[1])
                             self.lower_level_index              =   int(data[2])
