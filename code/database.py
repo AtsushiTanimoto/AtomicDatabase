@@ -1,15 +1,18 @@
+# Atomic Libraries
 import AutoionizationData
 import LevelData
 import LineProbability
-import logging
-import numpy
-import pfac.fac
 import PhotoionizationData
 import PopulationData
 import RecombinationRate
-import subprocess
 import TemperatureDensityGrid
 import TransitionData
+
+# Python Libraries
+import logging
+import numpy
+import pfac.fac
+import subprocess
 
 
 if __name__=="__main__":
