@@ -11,6 +11,7 @@
 *.grid
 *.ln
 *.pi
+*.px
 *.pop
 *.rates
 *.rb
