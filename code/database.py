@@ -46,9 +46,9 @@ if __name__=="__main__":
             Level = LevelData.LevelData()
             Level.write(i,j)
 
-            #logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            #Line = LineProbability.LineProbability()
-            #Line.write(i,j,temperatures,densities)
+            logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Line = LineProbability.LineProbability()
+            Line.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Photoionization = PhotoionizationData.PhotoionizationData()
