@@ -16,10 +16,10 @@ class PhotoionizationData:
         self.tau                  = 0.0
     
 
-    def function(self, x, sigma, gamma, tau):
-        return sigma*((x/self.ionization_potential)**gamma)*numpy.exp(-x/tau)
+    def residual(self, param, x, y):
+        return y - param[0]*((x/self.ionization_potential)**param[1])*numpy.exp(-x/param[2])
 
-
+ 
     def write(self, atomic_number, electron_number):
         with open("../database01/{0:s}/{0:s}{1:02d}a.rr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             with open("../database02/{0:s}/{0:s}{1:02d}.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
@@ -33,7 +33,8 @@ class PhotoionizationData:
                         if len(energy)==7:
                             energy     = energy[1:]
                             cross      = cross[1:]
-                            parameter  = scipy.optimize.curve_fit(self.function, energy, cross, p0=[1e-20, -2e+00, 1e+10], maxfev=1000000)[0]
+                            param      = [1e-20, -2e+00, 1e+05]
+                            parameter  = scipy.optimize.leastsq(func=self.residual, x0=param, maxfev=1000000, args=(energy,cross))[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
