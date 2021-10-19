@@ -31,7 +31,6 @@ class RadiativedecayData:
         df = pandas.DataFrame({"upper_level_index": self.upper_level_index, "upper_level_statistical_weight": self.upper_level_statistical_weight, "lower_level_index": self.lower_level_index, "lower_level_statistical_weight": self.lower_level_statistical_weight, "transition_energy": self.transition_energy, "oscillator_strength": self.oscillator_strength, "radiative_decay_rate": self.radiative_decay_rate})
         df.sort_values("upper_level_index", inplace=True)
         df.reset_index(drop=True, inplace=True)
-        print(df)
 
         with open("../database02/{0:s}/{0:s}{1:02d}.rd".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
             for i in range(len(df.index)):
