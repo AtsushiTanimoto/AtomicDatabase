@@ -51,13 +51,13 @@ if __name__=="__main__":
             Line = LineProbability.LineProbability()
             Line.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} TransitionData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info("{0:s}{1:02d} PhotoexcitationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Photoexcitation = PhotoexcitationData.PhotoexcitationData()
             Photoexcitation.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Photoionization = PhotoionizationData.PhotoionizationData()
-            Photoionization.write(i,j)
+            Photoionization.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} RadiativedecayData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Radiativedecay = RadiativedecayData.RadiativedecayData()
