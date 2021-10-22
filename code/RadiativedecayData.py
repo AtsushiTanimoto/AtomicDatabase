@@ -4,6 +4,7 @@ import pfac.fac
 
 class RadiativedecayData:
     def __init__(self):
+        self.maximum_level_index            = 0
         self.upper_level_index              = []
         self.upper_level_statistical_weight = []
         self.lower_level_index              = []
@@ -14,12 +15,17 @@ class RadiativedecayData:
     
 
     def write(self, atomic_number, electron_number):
+        with open("../database02/{0:s}/{0:s}{1:02d}.px".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+            for line in fin.readlines():
+                data               = line.split()
+                self.maximum_level_index = max(self.maximum_level_index, int(data[0]))
+
         with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
                     
                 if len(data)==8:
-                    if 1e-03<=float(data[5])/(1+int(data[3])):
+                    if int(data[0])<=self.maximum_level_index and 1e-03<=float(data[5])/(1+int(data[3])):
                         self.upper_level_index              += [int(data[0])]
                         self.upper_level_statistical_weight += [1+int(data[1])]
                         self.lower_level_index              += [int(data[2])]
