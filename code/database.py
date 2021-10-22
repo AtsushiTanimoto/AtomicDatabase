@@ -31,13 +31,13 @@ if __name__=="__main__":
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
 
-            logger.info("{0:s}{1:02d} PhotoexcitationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Photoexcitation = PhotoexcitationData.PhotoexcitationData()
-            Photoexcitation.write(i,j,temperatures,densities)
-
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Population = PopulationData.PopulationData()
             Population.write(i,j,temperatures,densities)
+            
+            logger.info("{0:s}{1:02d} PhotoexcitationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            Photoexcitation = PhotoexcitationData.PhotoexcitationData()
+            Photoexcitation.write(i,j,temperatures,densities)
             
             logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Recombination = RecombinationRate.RecombinationRate()
