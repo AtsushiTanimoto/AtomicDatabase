@@ -4,8 +4,9 @@ import subprocess
 
 
 if __name__=="__main__":
-    for i in range(26,27):
-        atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
-        directory     = "../database01/{0:s}/".format(atomic_symbol)
-        subprocess.call("mkdir {0:s}".format(directory),shell=True)
-        pfac.atom.atomic_data(nele=[15], asym=atomic_symbol, dir=directory)
+    for i in range(3,4):
+        for j in range(1,3):
+            atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
+            directory     = "../database01/{0:s}/".format(atomic_symbol)
+            subprocess.call("mkdir {0:s}".format(directory),shell=True)
+            pfac.atom.atomic_data(nele=[j], asym=atomic_symbol, dir=directory)
