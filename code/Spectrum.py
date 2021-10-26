@@ -69,7 +69,7 @@ def main():
     densities      = 1e-10*numpy.logspace(10, 10,  1)
     temperatures   = 1e+00*numpy.logspace( 0,  3, 31)
 
-    for i in range(3,4):
+    for i in range(3,11):
         for j in range(1,i):
             Spectrum(i, j, densities, temperatures)
             LineEmissivity(i, j, densities, temperatures)
