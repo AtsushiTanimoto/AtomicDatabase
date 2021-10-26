@@ -8,5 +8,6 @@ if __name__=="__main__":
         for j in range(1,i):
             atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
             directory     = "../database01/{0:s}/".format(atomic_symbol)
-            subprocess.call("mkdir {0:s}".format(directory),shell=True)
+            subprocess.call("rm -r {0:s}".format(directory), shell=True)
+            subprocess.call("mkdir {0:s}".format(directory), shell=True)
             pfac.atom.atomic_data(nele=[j], asym=atomic_symbol, dir=directory)
