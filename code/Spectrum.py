@@ -66,8 +66,8 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
 
 
 def main():
-    densities     = 1e-10*numpy.logspace(10, 10,  1)
-    temperatures  = 1e+00*numpy.logspace( 0,  3, 31)
+    densities      = 1e-10*numpy.logspace(10, 10,  1)
+    temperatures   = 1e+00*numpy.logspace( 0,  3, 31)
 
     for i in range(3,4):
         for j in range(1,i):
