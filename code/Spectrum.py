@@ -5,8 +5,8 @@ import subprocess
 
 
 if __name__=="__main__":
-    for i in range(26,27):
-        for j in range(1,5):
+    for i in range(3,4):
+        for j in range(1,i):
             atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
             input_dir     = "../database01/{0:s}/".format(atomic_symbol)
             output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, j)
