@@ -18,7 +18,7 @@ class PhotoionizationData:
     
 
     def residual(self, x, sigma, gamma, tau):
-        return sigma*(x/self.ionization_potential)**gamma*numpy.exp(-x/tau)
+        return sigma*numpy.power(x/self.ionization_potential,gamma)*numpy.exp(-x/tau)
 
  
     def write(self, atomic_number, electron_number, temperatures, densities):
@@ -42,9 +42,8 @@ class PhotoionizationData:
                             if len(energy)==7:
                                 energy     = energy[1:]
                                 cross      = cross[1:]
-                                bounds     = [(1e-30, -1e+01, 1e+00), (1e-20, -1e+00, 1e+06)]
-                                param      = [1e-20, -2e+00, 1e+06]
-                                parameter  = scipy.optimize.curve_fit(f=self.residual, xdata=energy, ydata=cross, p0=param, bounds=bounds)[0]
+                                p0         = [cross[0], -2e+00, energy[-1]]
+                                parameter  = scipy.optimize.curve_fit(f=self.residual, xdata=energy, ydata=cross, p0=p0)[0]
                                 self.sigma = parameter[0]
                                 self.gamma = parameter[1]
                                 self.tau   = parameter[2]
