@@ -16,6 +16,14 @@ class LineProbability:
     def write(self, atomic_number, electron_number, temperatures, densities):
         for i in range(len(temperatures)):
             for j in range(len(densities)):
+                self.coefficient                = []
+                self.num_electrons              = []
+                self.lower_level_index          = []
+                self.upper_level_index          = []
+                self.transition_quantum_numbers = []
+                self.transition_energy          = []
+                self.probability                = []
+            
                 with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
                     for line in fin.readlines():
                         data              = line.split()
@@ -24,7 +32,8 @@ class LineProbability:
                 with open("../database01/{0:s}/{0:s}{1:02d}_line/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
                     for line in fin.readlines():
                         data = line.split()
-                        if 1e+02<=float(data[4]) and 1e-03<=float(data[6])/(self.coefficient[i]*densities[j]):
+                        #if 1e+02<=float(data[4]) and 1e-03<=float(data[6])/(self.coefficient[i]*densities[j]):
+                        if 1e+02<=float(data[4]):
                             self.num_electrons              += [int(data[0])]
                             self.lower_level_index          += [min(int(data[1]), int(data[2]))]
                             self.upper_level_index          += [max(int(data[1]), int(data[2]))]

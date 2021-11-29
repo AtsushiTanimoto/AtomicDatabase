@@ -23,13 +23,13 @@ if __name__=="__main__":
     logger.setLevel(logging.DEBUG)
     logger.addHandler(handler)
 
-    for i in range(3,4):
+    for i in range(8,9):
         subprocess.call("rm -r ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
         subprocess.call("mkdir ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
             
-        for j in range(1,i):
-            densities     = numpy.logspace(10, 10,  1)
-            temperatures  = numpy.logspace( 0,  3, 31)
+        for j in range(1,3):
+            densities     = numpy.logspace(0, 20, 21)
+            temperatures  = numpy.logspace(0,  3, 31)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
 
@@ -57,9 +57,9 @@ if __name__=="__main__":
             Line = LineProbability.LineProbability()
             Line.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Photoionization = PhotoionizationData.PhotoionizationData()
-            Photoionization.write(i,j,temperatures,densities)
+            #logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            #Photoionization = PhotoionizationData.PhotoionizationData()
+            #Photoionization.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} RadiativedecayData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Radiativedecay = RadiativedecayData.RadiativedecayData()
