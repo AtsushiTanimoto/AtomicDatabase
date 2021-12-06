@@ -30,46 +30,46 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
     subprocess.call("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.call("mkdir {0:s}".format(output_dir), shell=True)
                 
-    if atomic_number==8:
-        if electron_number==2:
-            temperatures[0]  = temperatures[1]
-            temperatures[30] = temperatures[29]
-    elif atomic_number==13:
-        if electron_number==2:
-            temperatures[4]  = temperatures[3]
-    elif atomic_number==16:
-        if electron_number==2:
-            temperatures[6]  = temperatures[5]
-    elif atomic_number==18:
-        if electron_number==2:
-            temperatures[7]  = temperatures[6]
-    elif atomic_number==20:
-        if electron_number==2:
-            temperatures[7]  = temperatures[6]
-            temperatures[8]  = temperatures[9]
-    elif atomic_number==21:
-        if electron_number==2:
-            temperatures[8]  = temperatures[7]
-    elif atomic_number==23:
-        if electron_number==2:
-            temperatures[9]  = temperatures[8]
-    elif atomic_number==26:
-        if electron_number==2:
-            temperatures[10] = temperatures[9]
-        elif electron_number==3:
-            temperatures[10] = temperatures[9]
-    elif atomic_number==29:
-        if electron_number==2:
-            temperatures[11] = temperatures[10]
+#    if atomic_number==8:
+#        if electron_number==2:
+#            temperatures[0]  = temperatures[1]
+#            temperatures[30] = temperatures[29]
+#    elif atomic_number==13:
+#        if electron_number==2:
+#            temperatures[4]  = temperatures[3]
+#    elif atomic_number==16:
+#        if electron_number==2:
+#            temperatures[6]  = temperatures[5]
+#    elif atomic_number==18:
+#        if electron_number==2:
+#           temperatures[7]  = temperatures[6]
+#    elif atomic_number==20:
+#        if electron_number==2:
+#            temperatures[7]  = temperatures[6]
+#            temperatures[8]  = temperatures[9]
+#    elif atomic_number==21:
+#        if electron_number==2:
+#            temperatures[8]  = temperatures[7]
+#    elif atomic_number==23:
+#        if electron_number==2:
+#            temperatures[9]  = temperatures[8]
+#    elif atomic_number==26:
+#        if electron_number==2:
+#            temperatures[10] = temperatures[9]
+#        elif electron_number==3:
+#            temperatures[10] = temperatures[9]
+#    elif atomic_number==29:
+#        if electron_number==2:
+#            temperatures[11] = temperatures[10]
         
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=1, ci=1, rr=1, rrc=1)
+    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
 
 
 def main():
-    densities      = 1e-10*numpy.logspace(0, 20, 21)
-    temperatures   = 1e+00*numpy.logspace(0,  3, 31)
+    densities      = 1e-10*numpy.logspace(0, 0, 1)
+    temperatures   = 1e+00*numpy.logspace(0, 3, 31)
 
-    for i in range(8,9):
+    for i in range(3,31):
         for j in range(1,3):
             Spectrum(i, j, densities, temperatures)
             LineEmissivity(i, j, densities, temperatures)

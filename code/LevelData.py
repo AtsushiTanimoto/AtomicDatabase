@@ -3,14 +3,14 @@ import pfac.fac
 
 class LevelData:
     def __init__(self):
-        self.num_electrons          = -1
-        self.level_index            = -1
-        self.level_index_of_ionized = -1
-        self.level_energy           = 0.0
-        self.parity                 = 0
-        self.nl                     = 0
-        self.twoj                   = 0
-        self.configuration          = ""
+        self.num_electrons          = []
+        self.level_index            = []
+        self.level_index_of_ionized = []
+        self.level_energy           = []
+        self.parity                 = []
+        self.nl                     = []
+        self.twoj                   = []
+        self.configuration          = []
     
 
     def write(self, atomic_number, electron_number):
@@ -30,5 +30,5 @@ class LevelData:
                         self.parity                 =   int(data[3])
                         self.nl                     =   int(data[4])
                         self.twoj                   =   int(data[5])
-                        self.configuration          =   str(data[6])+" "+str(data[7])+" "+str(data[8])
+                        self.configuration          =   str(data[6])+" "+str(data[7])+" "+str(data[8])+" "
                         fout.write("{0:2d}   {1:6d} {2:6d}    {3:14.8e}    {4:d}   {5:4d}   {6:3d}   \t{7:s}\n".format(self.num_electrons, self.level_index, self.level_index_of_ionized, self.level_energy, self.parity, self.nl, self.twoj, self.configuration))
