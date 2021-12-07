@@ -28,40 +28,7 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
     populations   = 31*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.call("rm -r {0:s}".format(output_dir), shell=True)
-    subprocess.call("mkdir {0:s}".format(output_dir), shell=True)
-                
-#    if atomic_number==8:
-#        if electron_number==2:
-#            temperatures[0]  = temperatures[1]
-#            temperatures[30] = temperatures[29]
-#    elif atomic_number==13:
-#        if electron_number==2:
-#            temperatures[4]  = temperatures[3]
-#    elif atomic_number==16:
-#        if electron_number==2:
-#            temperatures[6]  = temperatures[5]
-#    elif atomic_number==18:
-#        if electron_number==2:
-#           temperatures[7]  = temperatures[6]
-#    elif atomic_number==20:
-#        if electron_number==2:
-#            temperatures[7]  = temperatures[6]
-#            temperatures[8]  = temperatures[9]
-#    elif atomic_number==21:
-#        if electron_number==2:
-#            temperatures[8]  = temperatures[7]
-#    elif atomic_number==23:
-#        if electron_number==2:
-#            temperatures[9]  = temperatures[8]
-#    elif atomic_number==26:
-#        if electron_number==2:
-#            temperatures[10] = temperatures[9]
-#        elif electron_number==3:
-#            temperatures[10] = temperatures[9]
-#    elif atomic_number==29:
-#        if electron_number==2:
-#            temperatures[11] = temperatures[10]
-        
+    subprocess.call("mkdir {0:s}".format(output_dir), shell=True)        
     pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
 
 
