@@ -3,7 +3,7 @@ import pfac.fac
 import scipy.optimize
 
 
-class PhotoionizationData:
+class RadiativeRecombinationData:
     def __init__(self):
         self.bound_level_index    = -1
         self.bound_level_twoj     = 0
