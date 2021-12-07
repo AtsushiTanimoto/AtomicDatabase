@@ -2,7 +2,7 @@ from os import minor
 import pfac.fac
 
 
-class RadiativedecayData:
+class RadiativeDecayData:
     def __init__(self):
         self.upper_level_index              = -1
         self.upper_level_statistical_weight = 0

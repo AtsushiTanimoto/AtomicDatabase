@@ -44,7 +44,7 @@ class PhotoionizationData:
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
                             self.tau   = parameter[2]
-                            photoionization_data.append({"bound_level_index":self.bound_level_index, "bound_level_twoj":self.bound_level_twoj, "ionized_level_index":self.ionized_level_index, "ionized_level_twoj":self.ionized_level_twoj, "l":self.l, "ionization_potential":self.ionization_potential})
+                            photoionization_data.append({"bound_level_index":self.bound_level_index, "bound_level_twoj":self.bound_level_twoj, "ionized_level_index":self.ionized_level_index, "ionized_level_twoj":self.ionized_level_twoj, "l":self.l, "ionization_potential":self.ionization_potential, "sigma":self.sigma, "gamma":self.gamma, "tau":self.tau})
 
                 elif len(data)==6:
                     energy                    = numpy.array([])
@@ -55,6 +55,8 @@ class PhotoionizationData:
                     self.ionized_level_twoj   =   int(data[3])
                     self.l                    =   int(data[5])
                     self.ionization_potential = float(data[4])
+        
+        return photoionization_data
 
 
     def residual(self, x, sigma, gamma, tau):
