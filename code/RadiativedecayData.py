@@ -25,7 +25,7 @@ class RadiativedecayData:
                 data = line.split()
                     
                 if len(data)==8:
-                    if int(data[0])<=self.maximum_level_index and 1e-03<=float(data[5])/(1+int(data[3])):
+                    if int(data[0])<=self.maximum_level_index:
                         self.upper_level_index              += [int(data[0])]
                         self.upper_level_statistical_weight += [1+int(data[1])]
                         self.lower_level_index              += [int(data[2])]

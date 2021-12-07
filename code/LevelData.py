@@ -4,14 +4,14 @@ import pfac.fac
 
 class LevelData:
     def __init__(self):
-        self.num_electrons          = []
-        self.level_index            = []
-        self.level_index_of_ionized = []
-        self.level_energy           = []
-        self.parity                 = []
-        self.nl                     = []
-        self.twoj                   = []
-        self.configuration          = []
+        self.num_electrons          = -1
+        self.level_index            = -1
+        self.level_index_of_ionized = -1
+        self.level_energy           = 0.0
+        self.parity                 = -1
+        self.nl                     = -1
+        self.twoj                   = -1
+        self.configuration          = ""
     
 
     def write(self, atomic_number, electron_number):

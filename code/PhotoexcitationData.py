@@ -42,4 +42,4 @@ class PhotoexcitationData:
 
         with open("../database02/{0:s}/{0:s}{1:02d}.px".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
             for i in range(len(df.index)):
-                fout.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(df.upper_level_index, df.upper_level_statistical_weight, df.lower_level_index, df.lower_level_statistical_weight, df.transition_energy, df.oscillator_strength, df.radiative_decay_rate))
+                fout.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(df.upper_level_index[i], df.upper_level_statistical_weight[i], df.lower_level_index[i], df.lower_level_statistical_weight[i], df.transition_energy[i], df.oscillator_strength[i], df.radiative_decay_rate[i]))
