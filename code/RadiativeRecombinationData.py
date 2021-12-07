@@ -24,7 +24,7 @@ class RadiativeRecombinationData:
                 data   = line.split()
 
                 if len(data)==4:
-                    if data[1]!="Z" and self.bound_level_index<=84:
+                    if data[1]!="Z":
                         energy = numpy.append(energy, 1e+00*float(data[0])+self.ionization_potential)
                         cross  = numpy.append(cross , 1e-20*float(data[2]))
 
@@ -39,14 +39,17 @@ class RadiativeRecombinationData:
                             photoionization_data.append({"bound_level_index":self.bound_level_index, "bound_level_twoj":self.bound_level_twoj, "ionized_level_index":self.ionized_level_index, "ionized_level_twoj":self.ionized_level_twoj, "l":self.l, "ionization_potential":self.ionization_potential, "sigma":self.sigma, "gamma":self.gamma, "tau":self.tau})
 
                 elif len(data)==6:
-                    energy                    = numpy.array([])
-                    cross                     = numpy.array([])
-                    self.bound_level_index    =   int(data[0])
-                    self.bound_level_twoj     =   int(data[1])
-                    self.ionized_level_index  =   int(data[2])
-                    self.ionized_level_twoj   =   int(data[3])
-                    self.l                    =   int(data[5])
-                    self.ionization_potential = float(data[4])
+                    if 1.0e+02<=float(data[4]):
+                        energy                    = numpy.array([])
+                        cross                     = numpy.array([])
+                        self.bound_level_index    =   int(data[0])
+                        self.bound_level_twoj     =   int(data[1])
+                        self.ionized_level_index  =   int(data[2])
+                        self.ionized_level_twoj   =   int(data[3])
+                        self.l                    =   int(data[5])
+                        self.ionization_potential = float(data[4])
+                    else:
+                        break
         
         return photoionization_data
 
