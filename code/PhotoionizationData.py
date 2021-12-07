@@ -5,7 +5,6 @@ import scipy.optimize
 
 class PhotoionizationData:
     def __init__(self):
-        self.exist_level_index    = set()
         self.bound_level_index    = -1
         self.bound_level_twoj     = 0
         self.ionized_level_index  = -1
@@ -22,12 +21,14 @@ class PhotoionizationData:
 
  
     def write(self, atomic_number, electron_number, temperatures, densities):
+        exist_level_index = set()
+
         for i in range(len(temperatures)):
             for j in range(len(densities)):
                 with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i02.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
                     for line in fin.readlines():
                         data = line.split()
-                        self.exist_level_index.update({int(data[0])})
+                        exist_level_index.update({int(data[0])})
 
         with open("../database01/{0:s}/{0:s}{1:02d}a.rr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             with open("../database02/{0:s}/{0:s}{1:02d}.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
@@ -35,7 +36,7 @@ class PhotoionizationData:
                     data   = line.split()
 
                     if len(data)==4:
-                        if data[1]!="Z" and self.bound_level_index in self.exist_level_index:
+                        if data[1]!="Z" and self.bound_level_index in exist_level_index:
                             energy = numpy.append(energy, 1e+00*float(data[0])+self.ionization_potential)
                             cross  = numpy.append(cross , 1e-20*float(data[2]))
 
