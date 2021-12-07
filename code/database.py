@@ -23,7 +23,7 @@ if __name__=="__main__":
     logger.setLevel(logging.DEBUG)
     logger.addHandler(handler)
 
-    for i in range(3,4):
+    for i in range(26,27):
         subprocess.call("rm -r ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
         subprocess.call("mkdir ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
             
