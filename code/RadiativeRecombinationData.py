@@ -31,7 +31,7 @@ class RadiativeRecombinationData:
                         if len(energy)==7:
                             energy     = energy[1:]
                             cross      = cross[1:]
-                            p0         = [cross[0], -2e+00, energy[-1]]
+                            p0         = [cross[1], -2e+00, energy[1]]
                             parameter  = scipy.optimize.curve_fit(f=self.residual, xdata=energy, ydata=cross, p0=p0, maxfev=1000000)[0]
                             self.sigma = parameter[0]
                             self.gamma = parameter[1]
