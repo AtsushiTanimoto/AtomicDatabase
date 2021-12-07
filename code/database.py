@@ -68,7 +68,7 @@ if __name__=="__main__":
 
             logger.info("{0:s}{1:02d} RadiativeRecombinationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Radiativerecombination = RadiativeRecombinationData.RadiativeRecombinationData()
-            Radiativerecombination.write(i,j)
+            Radiativerecombination.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
             Grid = TemperatureDensityGrid.TemperatureDensityGrid()
