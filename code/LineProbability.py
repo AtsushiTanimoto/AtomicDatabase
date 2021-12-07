@@ -15,15 +15,7 @@ class LineProbability:
 
     def write(self, atomic_number, electron_number, temperatures, densities):
         for i in range(len(temperatures)):
-            for j in range(len(densities)):
-                self.coefficient                = []
-                self.num_electrons              = []
-                self.lower_level_index          = []
-                self.upper_level_index          = []
-                self.transition_quantum_numbers = []
-                self.transition_energy          = []
-                self.probability                = []
-            
+            for j in range(len(densities)):           
                 with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
                     for line in fin.readlines():
                         data              = line.split()
@@ -39,7 +31,7 @@ class LineProbability:
                             self.upper_level_index          += [max(int(data[1]), int(data[2]))]
                             self.transition_quantum_numbers += [int(data[3])]
                             self.transition_energy          += [float(data[4])]
-                            self.probability                += [float(data[6])/(self.coefficient[i]*densities[j])]
+                            self.probability                += [float(data[6])/self.coefficient[i]/densities[j]]
                 
                 df = pandas.DataFrame({"num_electrons": self.num_electrons, "lower_level_index": self.lower_level_index, "upper_level_index": self.upper_level_index, "transition_quantum_numbers": self.transition_quantum_numbers, "transition_energy": self.transition_energy, "probability": self.probability})
                 df.sort_values("transition_energy", inplace=True)
