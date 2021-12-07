@@ -15,7 +15,7 @@ class LineProbability:
     def generate(self, atomic_number, electron_number, temperature_index, density_index):
         coefficient = []
         line_data   = []
-        densities   = numpy.logspace(10,10,1)
+        densities   = numpy.logspace(0,0,1)
 
         with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             for line in fin.readlines():
@@ -26,15 +26,16 @@ class LineProbability:
             for line in fin.readlines():
                 data = line.split()
 
-                if 1e+02<=float(data[4]) and 1e-03<=float(data[6])/self.coefficient[temperature_index]/densities[density_index]:
+                if 1e+02<=float(data[4]) and 1e-03<=float(data[6])/(coefficient[temperature_index]*densities[density_index]):
                     self.num_electrons              = int(data[0])
                     self.lower_level_index          = min(int(data[1]), int(data[2]))
                     self.upper_level_index          = max(int(data[1]), int(data[2]))
                     self.transition_quantum_numbers = int(data[3])
                     self.transition_energy          = float(data[4])
-                    self.probability                = float(data[6])/self.coefficient[temperature_index]/densities[density_index]
+                    self.probability                = float(data[6])/(coefficient[temperature_index]*densities[density_index])
                     line_data.append({"num_electrons":self.num_electrons, "lower_level_index":self.lower_level_index, "upper_level_index":self.upper_level_index, "transition_quantum_numbers":self.transition_quantum_numbers, "transition_energy":self.transition_energy, "probability":self.probability})
 
+        line_data = sorted(line_data, key=lambda x:x["transition_energy"])
         return line_data
 
 
