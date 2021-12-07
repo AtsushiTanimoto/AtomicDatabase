@@ -29,7 +29,7 @@ class AutoionizationData:
                     data = line.split()
 
                     if len(data)==7:
-                        if int(data[0])<=self.maximum_level_index:
+                        if int(data[0])<=maximum_level_index:
                             self.bound_level_index   = int(data[0])
                             self.bound_level_twoj    = int(data[1])
                             self.ionized_level_index = int(data[2])
