@@ -36,8 +36,7 @@ class AutoionizationData:
                             self.ionized_level_twoj  = int(data[3])
                             self.transition_energy   = float(data[4])
                             self.autoionization_rate = float(data[5])
-
-                autoionization_data.append({"bound_level_index":self.bound_level_index, "bound_level_twoj":self.bound_level_twoj, "ionized_level_index":self.ionized_level_index, "ionized_level_twoj":self.ionized_level_twoj, "transition_energy":self.transition_energy, "autoionization_rate":self.autoionization_rate})
+                            autoionization_data.append({"bound_level_index":self.bound_level_index, "bound_level_twoj":self.bound_level_twoj, "ionized_level_index":self.ionized_level_index, "ionized_level_twoj":self.ionized_level_twoj, "transition_energy":self.transition_energy, "autoionization_rate":self.autoionization_rate})
         
         return autoionization_data
         
