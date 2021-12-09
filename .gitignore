@@ -17,6 +17,7 @@
 *.rb
 *.rd
 *.rr
+*.rrc
 *.rt
 *.sp
 *.sum
