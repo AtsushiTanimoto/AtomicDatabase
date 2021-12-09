@@ -9,4 +9,4 @@ if __name__=="__main__":
         directory     = "../database01/{0:s}/".format(atomic_symbol)
         subprocess.call("rm -r {0:s}".format(directory), shell=True)
         subprocess.call("mkdir {0:s}".format(directory), shell=True)
-        pfac.atom.atomic_data(nele=range(1,min(i,5)), asym=atomic_symbol, dir=directory)
+        pfac.atom.atomic_data(nele=range(1,min(11,i)), asym=atomic_symbol, dir=directory)
