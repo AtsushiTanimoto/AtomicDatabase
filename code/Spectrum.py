@@ -22,23 +22,39 @@ def LineEmissivity(atomic_number, electron_number, densities, temperatures):
                 pfac.crm.SelectLines(input_filename, output_filename, electron_number, transition, minimum_energy, maximum_energy, threshold)
 
 
-def Spectrum(atomic_number, electron_number, densities, temperatures):
+def Spectrum(atomic_number, electron_number, densities, temperatures, ai, ce, ci, rr, rrc):
     atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
     input_dir     = "../database01/{0:s}/".format(atomic_symbol)
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
     populations   = len(temperatures)*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.call("rm -r {0:s}".format(output_dir), shell=True)
-    subprocess.call("mkdir {0:s}".format(output_dir), shell=True)        
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=1, ci=1, rr=1, rrc=1)
+    subprocess.call("mkdir {0:s}".format(output_dir), shell=True)
+
+    if electron_number<=2:
+        pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=ai, ce=ce, ci=ci, rr=rr, rrc=rrc)
 
 
 def main():
-    densities      = 1e-10*numpy.logspace(0, 10, 11)
-    temperatures   = 1e+00*numpy.logspace(0,  3, 31)
-
-    for i in range(26,27):
-        for j in range(1,11):
-            Spectrum(i, j, densities, temperatures)
+    for i in range(3,31):
+        for j in range(1,min(11,i)):
+            if j<=2:
+                ai             = 0
+                ce             = 1
+                ci             = 1
+                rr             = 1
+                rrc            = 1
+                densities      = 1e-10*numpy.logspace(0, 10, 11)
+                temperatures   = 1e+00*numpy.logspace(0,  3, 31)
+            else:
+                ai             = 0
+                ce             = 0
+                ci             = 0
+                rr             = 1
+                rrc            = 1
+                densities      = 1e-10*numpy.logspace(0,  0,  0)
+                temperatures   = 1e+00*numpy.logspace(0,  3, 31)
+            
+            Spectrum(i, j, densities, temperatures, ai, ce, ci, rr, rrc)
             LineEmissivity(i, j, densities, temperatures)
 
 
