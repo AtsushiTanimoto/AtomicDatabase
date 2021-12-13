@@ -26,14 +26,14 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
     atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
     input_dir     = "../database01/{0:s}/".format(atomic_symbol)
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
-    populations   = 31*[(1+atomic_number)*[1.0/(1+atomic_number)]]
+    populations   = len(temperatures)*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.call("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.call("mkdir {0:s}".format(output_dir), shell=True)        
     pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
 
 
 def main():
-    densities      = 1e-10*numpy.logspace(0, 0, 1)
+    densities      = 1e-10*numpy.logspace(0, 0,  1)
     temperatures   = 1e+00*numpy.logspace(0, 4, 41)
 
     for i in range(26,27):
