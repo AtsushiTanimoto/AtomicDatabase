@@ -22,25 +22,20 @@ def LineEmissivity(atomic_number, electron_number, densities, temperatures):
                 pfac.crm.SelectLines(input_filename, output_filename, electron_number, transition, minimum_energy, maximum_energy, threshold)
 
 
-def Spectrum(atomic_number, electron_number, densities, temperatures, ai, ce, ci, rr, rrc):
+def Spectrum(atomic_number, electron_number, densities, temperatures):
     atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
     input_dir     = "../database01/{0:s}/".format(atomic_symbol)
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
-    populations   = len(temperatures)*[(1+atomic_number)*[1.0/(1+atomic_number)]]
+    populations   = 31*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.run("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.run("mkdir {0:s}".format(output_dir), shell=True)
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=ai, ce=ce, ci=ci, rr=rr, rrc=rrc)
+    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
 
 
 if __name__=="__main__":
     for i in range(3,31):
         for j in range(1,min(11,i)):
-            ai             = 0
-            ce             = 0
-            ci             = 0
-            rr             = 1
-            rrc            = 1
-            densities      = 1e-10*numpy.logspace(0, 0,  0)
+            densities      = 1e-10*numpy.logspace(0, 0,  1)
             temperatures   = 1e+00*numpy.logspace(0, 3, 31)
-            Spectrum(i, j, densities, temperatures, ai, ce, ci, rr, rrc)
+            Spectrum(i, j, densities, temperatures)
             LineEmissivity(i, j, densities, temperatures)
