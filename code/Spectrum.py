@@ -33,7 +33,7 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
 
 
 if __name__=="__main__":
-    for i in range(10,31):
+    for i in [12, 14, 16, 18, 20, 26, 28]:
         for j in range(1,min(11,i)):
             densities      = 1e-10*numpy.logspace(0, 0,  1)
             temperatures   = 1e+00*numpy.logspace(0, 3, 31)
