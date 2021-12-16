@@ -42,7 +42,6 @@ def main():
             rrc            = 1
             densities      = 1e-10*numpy.logspace(0, 0,  0)
             temperatures   = 1e+00*numpy.logspace(0, 3, 31)
-            
             Spectrum(i, j, densities, temperatures, ai, ce, ci, rr, rrc)
             LineEmissivity(i, j, densities, temperatures)
 
