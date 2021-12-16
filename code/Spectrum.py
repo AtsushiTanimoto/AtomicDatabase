@@ -35,7 +35,7 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
 if __name__=="__main__":
     for i in range(3,31):
         for j in range(1,min(3,i)):
-            densities      = 1e-10*numpy.logspace(0, 15, 16)
+            densities      = 1e-10*numpy.logspace(0, 14, 15)
             temperatures   = 1e+00*numpy.logspace(0,  4, 41)
             Spectrum(i, j, densities, temperatures)
             LineEmissivity(i, j, densities, temperatures)
