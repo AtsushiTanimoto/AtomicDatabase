@@ -29,13 +29,13 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
     populations   = 31*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.run("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.run("mkdir {0:s}".format(output_dir), shell=True)
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
+    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=1, ci=1, rr=1, rrc=1)
 
 
 if __name__=="__main__":
-    for i in [12, 14, 16, 18, 20, 26, 28]:
-        for j in range(1,min(11,i)):
-            densities      = 1e-10*numpy.logspace(0, 0,  1)
-            temperatures   = 1e+00*numpy.logspace(0, 3, 31)
+    for i in range(3,31):
+        for j in range(1,min(3,i)):
+            densities      = 1e-10*numpy.logspace(0, 10, 11)
+            temperatures   = 1e+00*numpy.logspace(0,  3, 31)
             Spectrum(i, j, densities, temperatures)
             LineEmissivity(i, j, densities, temperatures)
