@@ -32,7 +32,7 @@ def Spectrum(atomic_number, electron_number, densities, temperatures, ai, ce, ci
     pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=ai, ce=ce, ci=ci, rr=rr, rrc=rrc)
 
 
-def main():
+if __name__=="__main__":
     for i in range(3,31):
         for j in range(1,min(11,i)):
             ai             = 0
@@ -44,7 +44,3 @@ def main():
             temperatures   = 1e+00*numpy.logspace(0, 3, 31)
             Spectrum(i, j, densities, temperatures, ai, ce, ci, rr, rrc)
             LineEmissivity(i, j, densities, temperatures)
-
-
-if __name__=="__main__":
-    main()
