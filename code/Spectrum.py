@@ -1,3 +1,4 @@
+from mpi4py import MPI
 import numpy
 import pfac.fac
 import pfac.spm
@@ -14,11 +15,11 @@ def LineEmissivity(atomic_number, electron_number, densities, temperatures):
     subprocess.run("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.run("mkdir {0:s}".format(output_dir), shell=True)
 
-    for k in range(len(temperatures)):
-        for l in range(len(densities)):
+    for j in range(len(temperatures)):
+        for k in range(len(densities)):
             for transition in transitions:
-                input_filename  = input_dir  + "/{0:s}{1:02d}b_t{2:02d}d{3:02d}i02.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, k, l)
-                output_filename = output_dir + "/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, k, l)
+                input_filename  = input_dir  + "/{0:s}{1:02d}b_t{2:02d}d{3:02d}i02.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, j, k)
+                output_filename = output_dir + "/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, j, k)
                 pfac.crm.SelectLines(input_filename, output_filename, electron_number, transition, minimum_energy, maximum_energy, threshold)
 
 
@@ -29,13 +30,16 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
     populations   = len(temperatures)*[(1+atomic_number)*[1.0/(1+atomic_number)]]
     subprocess.run("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.run("mkdir {0:s}".format(output_dir), shell=True)
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=1, ci=1, rr=1, rrc=1)
+    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=0, ci=0, rr=1, rrc=1)
 
 
 if __name__=="__main__":
-    for i in range(3,31):
-        for j in range(1,min(3,i)):
-            densities      = 1e-10*numpy.logspace(0, 14, 15)
-            temperatures   = 1e+00*numpy.logspace(0,  4, 41)
-            Spectrum(i, j, densities, temperatures)
-            LineEmissivity(i, j, densities, temperatures)
+    comm          = MPI.COMM_WORLD
+    rank          = comm.Get_rank()
+    size          = comm.Get_size()
+    
+    for i in range(1, min(11, 1+rank)):
+        densities      = 1e-10*numpy.logspace(0, 0,  1)
+        temperatures   = 1e+00*numpy.logspace(0, 4, 41)
+        Spectrum(1+rank, i, densities, temperatures)
+        LineEmissivity(1+rank, i, densities, temperatures)
