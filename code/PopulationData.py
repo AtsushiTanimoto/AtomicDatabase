@@ -17,7 +17,18 @@ class PopulationData:
                 
                 if len(data)==6:
                     if int(data[0])==0:
-                        if float(data[3])<=0.0 or 1.0<=float(data[3]) or str(data[3])=="INF":
+                        if str(data[3])=="NAN":
+                            #print("population data is nan")
+                            self.level       = int(data[0])
+                            self.possibility = 1.0
+                            population_data.append({"level":self.level, "possibility":self.possibility})
+                        elif float(data[3])<=0.0:
+                            #print("population data is smaller than 0.0")
+                            self.level       = int(data[0])
+                            self.possibility = 1.0
+                            population_data.append({"level":self.level, "possibility":self.possibility})
+                        elif 1.0<float(data[3]):
+                            #print("population data is larger than 1.0")
                             self.level       = int(data[0])
                             self.possibility = 1.0
                             population_data.append({"level":self.level, "possibility":self.possibility})

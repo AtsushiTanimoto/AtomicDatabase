@@ -24,13 +24,13 @@ if __name__=="__main__":
     logger.setLevel(logging.DEBUG)
     logger.addHandler(handler)
 
-    for i in range(26,27):
+    for i in range(26, 27):
         subprocess.call("rm -r ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
         subprocess.call("mkdir ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
             
-        for j in range(1,3):
+        for j in range(1, min(11, i)):
             densities     = numpy.logspace(0, 0,  1)
-            temperatures  = numpy.logspace(0, 3, 31)
+            temperatures  = numpy.logspace(0, 4, 41)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
 
