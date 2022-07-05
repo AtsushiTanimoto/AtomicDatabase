@@ -13,6 +13,7 @@
 *.pi
 *.px
 *.pop
+*.pyc
 *.rates
 *.rb
 *.rd
