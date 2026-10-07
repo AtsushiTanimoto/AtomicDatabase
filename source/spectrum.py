@@ -1,10 +1,11 @@
+import config
 import numpy
 import pfac.fac
 import pfac.spm
 import subprocess
 
 
-def LineEmissivity(atomic_number, electron_number, densities, temperatures):
+def line_emissivity(atomic_number, electron_number, densities, temperatures):
     minimum_energy = 0.0e+00 # eV
     maximum_energy = 1.0e+04 # eV
     threshold      = 0.0e+00
@@ -22,7 +23,7 @@ def LineEmissivity(atomic_number, electron_number, densities, temperatures):
                 pfac.crm.SelectLines(input_filename, output_filename, electron_number, transition, minimum_energy, maximum_energy, threshold)
 
 
-def Spectrum(atomic_number, electron_number, densities, temperatures):
+def spectrum(atomic_number, electron_number, densities, temperatures):
     atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
     input_dir     = "../database01/{0:s}/".format(atomic_symbol)
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
@@ -33,9 +34,9 @@ def Spectrum(atomic_number, electron_number, densities, temperatures):
 
 
 if __name__=="__main__":
-    for i in range(26, 27):
-        for j in range(11, 1+i):
+    for i in config.ATOMIC_NUMBERS:
+        for j in range(1, 1+i):
             densities      = 1e-10*numpy.logspace(0, 0,  1)
             temperatures   = 1e+00*numpy.logspace(0, 4, 41)
-            Spectrum(i, j, densities, temperatures)
-            LineEmissivity(i, j, densities, temperatures)
+            spectrum(i, j, densities, temperatures)
+            line_emissivity(i, j, densities, temperatures)

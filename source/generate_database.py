@@ -1,14 +1,15 @@
 # Atomic Libraries
-import AutoionizationData
-import LevelData
-import LineProbability
-import PhotoexcitationData
-import PhotoionizationData
-import PopulationData
-import RadiativeDecayData
-import RadiativeRecombinationData
-import RecombinationRate
-import TemperatureDensityGrid
+import autoionization_data
+import config
+import level_data
+import line_probability
+import photoexcitation_data
+import photoionization_data
+import population_data
+import radiative_decay_data
+import radiative_recombination_data
+import recombination_rate
+import temperature_density_grid
 
 # Python Libraries
 import logging
@@ -24,7 +25,7 @@ if __name__=="__main__":
     logger.setLevel(logging.DEBUG)
     logger.addHandler(handler)
 
-    for i in range(26, 27):
+    for i in config.ATOMIC_NUMBERS:
         subprocess.call("rm -r ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
         subprocess.call("mkdir ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
             
@@ -35,41 +36,41 @@ if __name__=="__main__":
             subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
 
             logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Population = PopulationData.PopulationData()
-            Population.write(i,j,temperatures,densities)
+            population = population_data.PopulationData()
+            population.write(i,j,temperatures,densities)
             
             logger.info("{0:s}{1:02d} PhotoexcitationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Photoexcitation = PhotoexcitationData.PhotoexcitationData()
-            Photoexcitation.write(i,j,temperatures,densities)
+            photoexcitation = photoexcitation_data.PhotoexcitationData()
+            photoexcitation.write(i,j,temperatures,densities)
             
             logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Recombination = RecombinationRate.RecombinationRate()
-            Recombination.write(i,j,temperatures)
+            recombination = recombination_rate.RecombinationRate()
+            recombination.write(i,j,temperatures)
 
             logger.info("{0:s}{1:02d} AutoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Autoionization = AutoionizationData.AutoionizationData()
-            Autoionization.write(i,j)
+            autoionization = autoionization_data.AutoionizationData()
+            autoionization.write(i,j)
 
             logger.info("{0:s}{1:02d} LevelData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Level = LevelData.LevelData()
-            Level.write(i,j)
+            level = level_data.LevelData()
+            level.write(i,j)
 
             logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Line = LineProbability.LineProbability()
-            Line.write(i,j,temperatures,densities)
+            line = line_probability.LineProbability()
+            line.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Photoionization = PhotoionizationData.PhotoionizationData()
-            Photoionization.write(i,j,temperatures,densities)
+            photoionization = photoionization_data.PhotoionizationData()
+            photoionization.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} RadiativeDecayData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Radiativedecay = RadiativeDecayData.RadiativeDecayData()
-            Radiativedecay.write(i,j)
+            radiative_decay = radiative_decay_data.RadiativeDecayData()
+            radiative_decay.write(i,j)
 
             logger.info("{0:s}{1:02d} RadiativeRecombinationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Radiativerecombination = RadiativeRecombinationData.RadiativeRecombinationData()
-            Radiativerecombination.write(i,j,temperatures,densities)
+            radiative_recombination = radiative_recombination_data.RadiativeRecombinationData()
+            radiative_recombination.write(i,j,temperatures,densities)
 
             logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
-            Grid = TemperatureDensityGrid.TemperatureDensityGrid()
-            Grid.write(i,j,temperatures,densities)
+            grid = temperature_density_grid.TemperatureDensityGrid()
+            grid.write(i,j,temperatures,densities)
