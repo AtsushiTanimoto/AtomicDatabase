@@ -9,9 +9,10 @@ class PopulationData:
 
 
     def generate(self, atomic_number, electron_number, temperature_index, density_index):
+        atomic_symbol   = pfac.fac.ATOMICSYMBOL[atomic_number]
         population_data = []
 
-        with open("../database01/{0:s}/{0:s}{1:02d}_spec/{0:s}{1:02d}a_t{2:02d}d{3:d}i2.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, temperature_index, density_index), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}_spec/{atomic_symbol:s}{electron_number:02d}a_t{temperature_index:02d}d{density_index:d}i2.sp", mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
                 
@@ -48,10 +49,12 @@ class PopulationData:
 
 
     def write(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+
         for i in range(len(temperatures)):
             for j in range(len(densities)):
                 population_data = self.generate(atomic_number, electron_number, i, j)
 
-                with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i2.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="w") as fout:
+                with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}_pop/{atomic_symbol:s}{electron_number:02d}_t{i:02d}d{j:02d}i2.pop", mode="w") as fout:
                     for k in range(len(population_data)):
-                        fout.write("{0:6d}     {1:10.4e}\n".format(population_data[k]["level"], population_data[k]["possibility"]))                   
+                        fout.write(f"{population_data[k]['level']:6d}     {population_data[k]['possibility']:10.4e}\n")                   

@@ -14,9 +14,10 @@ class LevelData:
     
 
     def generate(self, atomic_number, electron_number):
-        leveldata = []
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+        leveldata     = []
 
-        with open("../database01/{0:s}/{0:s}{1:02d}a.en".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}a.en", mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
                     
@@ -38,7 +39,8 @@ class LevelData:
 
     
     def write(self, atomic_number, electron_number):
-        leveldata = self.generate(atomic_number, electron_number)
-        with open("../database02/{0:s}/{0:s}{1:02d}.en".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+        leveldata     = self.generate(atomic_number, electron_number)
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.en", mode="w") as fout:
             for i in range(len(leveldata)):
-                fout.write("{0:2d}   {1:6d} {2:6d}    {3:14.8e}    {4:d}   {5:4d}   {6:3d}   \t{7:s}\n".format(leveldata[i]["num_electrons"], leveldata[i]["level_index"], leveldata[i]["level_index_of_ionized"], leveldata[i]["level_energy"], leveldata[i]["parity"], leveldata[i]["nl"], leveldata[i]["twoj"], leveldata[i]["configuration"]))
+                fout.write(f"{leveldata[i]['num_electrons']:2d}   {leveldata[i]['level_index']:6d} {leveldata[i]['level_index_of_ionized']:6d}    {leveldata[i]['level_energy']:14.8e}    {leveldata[i]['parity']:d}   {leveldata[i]['nl']:4d}   {leveldata[i]['twoj']:3d}   \t{leveldata[i]['configuration']:s}\n")

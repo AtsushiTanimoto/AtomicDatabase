@@ -13,16 +13,17 @@ class LineProbability:
     
 
     def generate(self, atomic_number, electron_number, temperature_index, density_index):
-        coefficient = []
-        line_data   = []
-        densities   = numpy.logspace(0,0,1)
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+        coefficient   = []
+        line_data     = []
+        densities     = numpy.logspace(0,0,1)
 
-        with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.rates", mode="r") as fin:
             for line in fin.readlines():
                 data         = line.split()
                 coefficient += [float(data[2])+float(data[3])] # RR + DR
 
-        with open("../database01/{0:s}/{0:s}{1:02d}_line/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, temperature_index, density_index), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}_line/{atomic_symbol:s}{electron_number:02d}a_t{temperature_index:02d}d{density_index:02d}i02.ln", mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
 
@@ -40,10 +41,12 @@ class LineProbability:
 
 
     def write(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+
         for i in range(len(temperatures)):
             for j in range(len(densities)):
                 line_data = self.generate(atomic_number, electron_number, i, j)
                 
-                with open("../database02/{0:s}/{0:s}{1:02d}_ln/{0:s}{1:02d}_t{2:02d}d{3:02d}i2.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="w") as fout:
+                with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}_ln/{atomic_symbol:s}{electron_number:02d}_t{i:02d}d{j:02d}i2.ln", mode="w") as fout:
                     for k in range(len(line_data)):
-                        fout.write("{0:2d}  {1:6d}  {2:6d}    {3:4d}       {4:12.6e}     {5:10.4e}\n".format(line_data[k]["num_electrons"], line_data[k]["lower_level_index"], line_data[k]["upper_level_index"], line_data[k]["transition_quantum_numbers"], line_data[k]["transition_energy"], line_data[k]["probability"]))
+                        fout.write(f"{line_data[k]['num_electrons']:2d}  {line_data[k]['lower_level_index']:6d}  {line_data[k]['upper_level_index']:6d}    {line_data[k]['transition_quantum_numbers']:4d}       {line_data[k]['transition_energy']:12.6e}     {line_data[k]['probability']:10.4e}\n")

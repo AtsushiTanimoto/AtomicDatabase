@@ -17,9 +17,10 @@ class RadiativeRecombinationData:
     
 
     def generate(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol        = pfac.fac.ATOMICSYMBOL[atomic_number]
         photoionization_data = []
         
-        with open("../database01/{0:s}/{0:s}{1:02d}a.rr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}a.rr", mode="r") as fin:
             for line in fin.readlines():
                 data   = line.split()
 
@@ -59,8 +60,9 @@ class RadiativeRecombinationData:
 
 
     def write(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol        = pfac.fac.ATOMICSYMBOL[atomic_number]
         photoionization_data = self.generate(atomic_number, electron_number, temperatures, densities)
         
-        with open("../database02/{0:s}/{0:s}{1:02d}.rrc.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.rrc.pi", mode="w") as fout:
             for i in range(len(photoionization_data)):
-                fout.write("{0:6d} {1:3d}   {2:6d} {3:3d}  {4:6d}      {5:11.5e}   {6:10.4e}  {7:10.4e}   {8:10.4e}\n".format(photoionization_data[i]["bound_level_index"], photoionization_data[i]["bound_level_twoj"], photoionization_data[i]["ionized_level_index"], photoionization_data[i]["ionized_level_twoj"], photoionization_data[i]["l"], photoionization_data[i]["ionization_potential"], photoionization_data[i]["sigma"], photoionization_data[i]["gamma"], photoionization_data[i]["tau"]))           
+                fout.write(f"{photoionization_data[i]['bound_level_index']:6d} {photoionization_data[i]['bound_level_twoj']:3d}   {photoionization_data[i]['ionized_level_index']:6d} {photoionization_data[i]['ionized_level_twoj']:3d}  {photoionization_data[i]['l']:6d}      {photoionization_data[i]['ionization_potential']:11.5e}   {photoionization_data[i]['sigma']:10.4e}  {photoionization_data[i]['gamma']:10.4e}   {photoionization_data[i]['tau']:10.4e}\n")           

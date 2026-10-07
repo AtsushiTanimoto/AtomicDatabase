@@ -12,18 +12,19 @@ class AutoionizationData:
     
 
     def generate(self, atomic_number, electron_number):
+        atomic_symbol       = pfac.fac.ATOMICSYMBOL[atomic_number]
         autoionization_data = []
         maximum_level_index = 0
 
         if electron_number==1:
             pass
         else:
-            with open("../database02/{0:s}/{0:s}{1:02d}.px.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+            with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.px.tr", mode="r") as fin:
                 for line in fin.readlines():
                     data                = line.split()
                     maximum_level_index = max(maximum_level_index, int(data[0]))
 
-            with open("../database01/{0:s}/{0:s}{1:02d}a.ai".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+            with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}a.ai", mode="r") as fin:
                 for line in fin.readlines():
                     data = line.split()
 
@@ -41,12 +42,13 @@ class AutoionizationData:
         
 
     def write(self, atomic_number, electron_number):
+        atomic_symbol       = pfac.fac.ATOMICSYMBOL[atomic_number]
         autoionization_data = self.generate(atomic_number, electron_number)
 
         if electron_number==1:
-            with open("../database02/{0:s}/{0:s}{1:02d}.ai".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+            with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.ai", mode="w") as fout:
                 pass
         else:
-            with open("../database02/{0:s}/{0:s}{1:02d}.ai".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+            with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.ai", mode="w") as fout:
                 for i in range(len(autoionization_data)):
-                    fout.write("{0:6d} {1:3d}   {2:6d} {3:3d}       {4:10.4e}    {5:10.4e}\n".format(autoionization_data[i]["bound_level_index"], autoionization_data[i]["bound_level_twoj"], autoionization_data[i]["ionized_level_index"], autoionization_data[i]["ionized_level_twoj"], autoionization_data[i]["transition_energy"], autoionization_data[i]["autoionization_rate"]))
+                    fout.write(f"{autoionization_data[i]['bound_level_index']:6d} {autoionization_data[i]['bound_level_twoj']:3d}   {autoionization_data[i]['ionized_level_index']:6d} {autoionization_data[i]['ionized_level_twoj']:3d}       {autoionization_data[i]['transition_energy']:10.4e}    {autoionization_data[i]['autoionization_rate']:10.4e}\n")

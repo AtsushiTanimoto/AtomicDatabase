@@ -7,11 +7,13 @@ class TemperatureDensityGrid:
 
 
     def write(self, atomic_number, electron_number, temperatures, densities):
-        with open("../database02/{0:s}/{0:s}{1:02d}.grid".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
-            fout.write("# {0:02d} {1:02d}\n".format(len(temperatures), len(densities)))
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
+
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.grid", mode="w") as fout:
+            fout.write(f"# {len(temperatures):02d} {len(densities):02d}\n")
             
             for i in range(len(temperatures)):
-                fout.write(" kT   {0:02d}     {1:11.5e}\n".format(i, temperatures[i]))
+                fout.write(f" kT   {i:02d}     {temperatures[i]:11.5e}\n")
             
             for i in range(len(densities)):
-                fout.write(" ne   {0:02d}     {1:11.5e}\n".format(i, densities[i]))
+                fout.write(f" ne   {i:02d}     {densities[i]:11.5e}\n")

@@ -26,55 +26,57 @@ if __name__=="__main__":
     logger.addHandler(handler)
 
     for i in config.ATOMIC_NUMBERS:
-        subprocess.call("rm -r ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
-        subprocess.call("mkdir ../database02/{0:s}".format(pfac.fac.ATOMICSYMBOL[i]), shell=True)
+        atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
+
+        subprocess.call(f"rm -r ../database02/{atomic_symbol:s}", shell=True)
+        subprocess.call(f"mkdir ../database02/{atomic_symbol:s}", shell=True)
             
         for j in range(1, min(11, i)):
             densities     = numpy.logspace(0, 0,  1)
             temperatures  = numpy.logspace(0, 4, 41)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_ln" .format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
-            subprocess.call("mkdir ../database02/{0:s}/{0:s}{1:02d}_pop".format(pfac.fac.ATOMICSYMBOL[i],j), shell=True)
+            subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_ln", shell=True)
+            subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_pop", shell=True)
 
-            logger.info("{0:s}{1:02d} PopulationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} PopulationData...")
             population = population_data.PopulationData()
             population.write(i,j,temperatures,densities)
             
-            logger.info("{0:s}{1:02d} PhotoexcitationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} PhotoexcitationData...")
             photoexcitation = photoexcitation_data.PhotoexcitationData()
             photoexcitation.write(i,j,temperatures,densities)
             
-            logger.info("{0:s}{1:02d} RecombinationRate...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} RecombinationRate...")
             recombination = recombination_rate.RecombinationRate()
             recombination.write(i,j,temperatures)
 
-            logger.info("{0:s}{1:02d} AutoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} AutoionizationData...")
             autoionization = autoionization_data.AutoionizationData()
             autoionization.write(i,j)
 
-            logger.info("{0:s}{1:02d} LevelData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} LevelData...")
             level = level_data.LevelData()
             level.write(i,j)
 
-            logger.info("{0:s}{1:02d} LineProbability...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} LineProbability...")
             line = line_probability.LineProbability()
             line.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} PhotoionizationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} PhotoionizationData...")
             photoionization = photoionization_data.PhotoionizationData()
             photoionization.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} RadiativeDecayData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} RadiativeDecayData...")
             radiative_decay = radiative_decay_data.RadiativeDecayData()
             radiative_decay.write(i,j)
 
-            logger.info("{0:s}{1:02d} RadiativeRecombinationData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} RadiativeRecombinationData...")
             radiative_recombination = radiative_recombination_data.RadiativeRecombinationData()
             radiative_recombination.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} TemperatureDensityGrid...")
             grid = temperature_density_grid.TemperatureDensityGrid()
             grid.write(i,j,temperatures,densities)
 
-            logger.info("{0:s}{1:02d} SummaryData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            logger.info(f"{atomic_symbol:s}{j:02d} SummaryData...")
             summary = summary_data.SummaryData()
             summary.write(i,j,temperatures,densities)

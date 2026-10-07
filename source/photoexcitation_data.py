@@ -13,17 +13,18 @@ class PhotoexcitationData:
     
 
     def generate(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol        = pfac.fac.ATOMICSYMBOL[atomic_number]
         exist_level_index    = set()
         photoexcitation_data = []
 
         for i in range(len(temperatures)):
             for j in range(len(densities)):
-                with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i2.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
+                with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}_pop/{atomic_symbol:s}{electron_number:02d}_t{i:02d}d{j:02d}i2.pop", mode="r") as fin:
                     for line in fin.readlines():
                         data = line.split()
                         exist_level_index.update({int(data[0])})
 
-        with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}a.tr", mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
 
@@ -42,8 +43,9 @@ class PhotoexcitationData:
     
 
     def write(self, atomic_number, electron_number, temperatures, densities):
+        atomic_symbol        = pfac.fac.ATOMICSYMBOL[atomic_number]
         photoexcitation_data = self.generate(atomic_number, electron_number, temperatures, densities)
 
-        with open("../database02/{0:s}/{0:s}{1:02d}.px.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.px.tr", mode="w") as fout:
             for i in range(len(photoexcitation_data)):
-                fout.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(photoexcitation_data[i]["upper_level_index"], photoexcitation_data[i]["upper_level_statistical_weight"], photoexcitation_data[i]["lower_level_index"], photoexcitation_data[i]["lower_level_statistical_weight"], photoexcitation_data[i]["transition_energy"], photoexcitation_data[i]["oscillator_strength"], photoexcitation_data[i]["radiative_decay_rate"]))
+                fout.write(f"{photoexcitation_data[i]['upper_level_index']:6d} {photoexcitation_data[i]['upper_level_statistical_weight']:4d}   {photoexcitation_data[i]['lower_level_index']:6d} {photoexcitation_data[i]['lower_level_statistical_weight']:4d}     {photoexcitation_data[i]['transition_energy']:12.6e}  {photoexcitation_data[i]['oscillator_strength']:12.6e}  {photoexcitation_data[i]['radiative_decay_rate']:12.6e}\n")

@@ -13,17 +13,18 @@ class RadiativeDecayData:
     
 
     def generate(self, atomic_number, electron_number):
+        atomic_symbol                = pfac.fac.ATOMICSYMBOL[atomic_number]
         radiative_decay_data         = []
         reduced_radiative_decay_data = []
         maximum_level_index          = 0
         minor_transition             = set()
 
-        with open("../database02/{0:s}/{0:s}{1:02d}.px.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.px.tr", mode="r") as fin:
             for line in fin.readlines():
                 data                = line.split()
                 maximum_level_index = max(maximum_level_index, int(data[0]))
 
-        with open("../database01/{0:s}/{0:s}{1:02d}a.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+        with open(f"../database01/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}a.tr", mode="r") as fin:
             for line in fin.readlines():
                 data = line.split()
                     
@@ -60,8 +61,9 @@ class RadiativeDecayData:
 
 
     def write(self, atomic_number, electron_number):
+        atomic_symbol        = pfac.fac.ATOMICSYMBOL[atomic_number]
         radiative_decay_data = self.generate(atomic_number, electron_number)
 
-        with open("../database02/{0:s}/{0:s}{1:02d}.rd.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+        with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.rd.tr", mode="w") as fout:
             for i in range(len(radiative_decay_data)):
-                fout.write("{0:6d} {1:4d}   {2:6d} {3:4d}     {4:12.6e}  {5:12.6e}  {6:12.6e}\n".format(radiative_decay_data[i]["upper_level_index"], radiative_decay_data[i]["upper_level_statistical_weight"], radiative_decay_data[i]["lower_level_index"], radiative_decay_data[i]["lower_level_statistical_weight"], radiative_decay_data[i]["transition_energy"], radiative_decay_data[i]["oscillator_strength"], radiative_decay_data[i]["radiative_decay_rate"]))
+                fout.write(f"{radiative_decay_data[i]['upper_level_index']:6d} {radiative_decay_data[i]['upper_level_statistical_weight']:4d}   {radiative_decay_data[i]['lower_level_index']:6d} {radiative_decay_data[i]['lower_level_statistical_weight']:4d}     {radiative_decay_data[i]['transition_energy']:12.6e}  {radiative_decay_data[i]['oscillator_strength']:12.6e}  {radiative_decay_data[i]['radiative_decay_rate']:12.6e}\n")
