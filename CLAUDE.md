@@ -49,7 +49,7 @@ python generate_database.py  # 3. database01 を読み、整形済みデータ�
 |---|---|---|
 | `population_data` | `_pop/*.pop`（占有確率 ≥ 1e-3 の準位） | — |
 | `photoexcitation_data` | `.px.tr` | `.pop` |
-| `recombination_rate` | `.rates`（`pfac.crm.Recomb` による RR/DR 率） | — |
+| `recombination_rate` | `.rates`（RR/DR 率。`spectrum.py` が書き出した衝突輻射モデルの率ダンプ `database01/…_spec/*.d0–d5` から計算し、輝線強度と同じモデルで規格化する） | — |
 | `autoionization_data` | `.ai` | `.px.tr` |
 | `level_data` | `.en` | — |
 | `line_probability` | `_ln/*.ln`（輝線強度を再結合率×密度で規格化） | `.rates` |
