@@ -29,8 +29,8 @@ python generate_database.py  # 3. database01 を読み、整形済みデータ�
 
 ### データの流れ
 
-- **database01**：FAC が出力する生データ。ファイル名は `<元素記号><電子数2桁>a.<拡張子>`（例 `Fe05a.en`, `Fe05a.tr`, `Fe05a.rr`, `Fe05a.ai`）、および温度・密度ごとの `<元素><NN>_spec/…a_tXXdYYi02.sp` / `<元素><NN>_line/…a_tXXdYYi02.ln`。
-- **database02**：本リポジトリが生成する最終データベース。`<元素><NN>.<拡張子>` と、温度・密度ごとのサブディレクトリ `<元素><NN>_pop/`, `<元素><NN>_ln/`。
+- **database01**：FAC が出力する生データ。ファイル名は `<元素記号><電子数2桁>a.<拡張子>`（例 `Fe05a.en`, `Fe05a.tr`, `Fe05a.rr`, `Fe05a.ai`）、および温度・密度ごとの `<元素><NN>_spec/…a_tXXdYi2.sp`（pfac が出力。密度インデックスは桁埋めなし） / `<元素><NN>_line/…a_tXXdYYi02.ln`。
+- **database02**：本リポジトリが生成する最終データベースで、X 線モンテカルロ放射輸送コード MONACO（`~/software/monaco`）の入力。`<元素><NN>.<拡張子>` と、温度・密度ごとのサブディレクトリ `<元素><NN>_pop/`, `<元素><NN>_ln/`（ファイル名 `…_tXXdYYi2.pop` / `.ln`）。ファイル名と固定幅フォーマットは MONACO の `source/processes/src/AtomicDataSet.cc` などの読み込み処理に合わせる必要がある。
 
 ### モジュール構成
 
@@ -48,14 +48,15 @@ python generate_database.py  # 3. database01 を読み、整形済みデータ�
 | モジュール | 出力 | 読み込む database02 ファイル |
 |---|---|---|
 | `population_data` | `_pop/*.pop`（占有確率 ≥ 1e-3 の準位） | — |
-| `photoexcitation_data` | `.px` | `.pop` |
+| `photoexcitation_data` | `.px.tr` | `.pop` |
 | `recombination_rate` | `.rates`（`pfac.crm.Recomb` による RR/DR 率） | — |
-| `autoionization_data` | `.ai` | `.px` |
+| `autoionization_data` | `.ai` | `.px.tr` |
 | `level_data` | `.en` | — |
 | `line_probability` | `_ln/*.ln`（輝線強度を再結合率×密度で規格化） | `.rates` |
 | `photoionization_data` | `.pi`（断面積を `σ(E/I)^-3 exp(-E/τ)` でフィット） | `.pop` |
-| `radiative_decay_data` | `.rd` | `.px` |
-| `radiative_recombination_data` | `.rrc`（フィットパラメータ） | — |
+| `radiative_decay_data` | `.rd.tr` | `.px.tr` |
+| `radiative_recombination_data` | `.rrc.pi`（フィットパラメータ） | — |
 | `temperature_density_grid` | `.grid`（温度・密度グリッド） | — |
+| `summary_data` | `.sum`（MONACO が配列確保と遷移の登録に使う件数表） | `.en`, `.px.tr`, `.pi`, `.rd.tr`, `.ai`, `_ln/*.ln` |
 
 つまり `population_data` で抽出した「有意な占有を持つ準位集合」が、後続の光励起・光電離・放射遷移・自動電離データの絞り込みに使われる、という構造になっている。

@@ -21,7 +21,7 @@ def line_emissivity(atomic_number, electron_number, densities, temperatures):
     for k in range(len(temperatures)):
         for l in range(len(densities)):
             for transition in transitions:
-                input_filename  = input_dir  + "/{0:s}{1:02d}b_t{2:02d}d{3:02d}i02.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, k, l)
+                input_filename  = input_dir  + "/{0:s}{1:02d}b_t{2:02d}d{3:d}i2.sp".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, k, l)
                 output_filename = output_dir + "/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, k, l)
                 pfac.crm.SelectLines(input_filename, output_filename, electron_number, transition, minimum_energy, maximum_energy, threshold)
 

@@ -14,6 +14,7 @@ import population_data
 import radiative_decay_data
 import radiative_recombination_data
 import recombination_rate
+import summary_data
 import temperature_density_grid
 
 
@@ -73,3 +74,7 @@ if __name__=="__main__":
             logger.info("{0:s}{1:02d} TemperatureDensityGrid...".format(pfac.fac.ATOMICSYMBOL[i],j))
             grid = temperature_density_grid.TemperatureDensityGrid()
             grid.write(i,j,temperatures,densities)
+
+            logger.info("{0:s}{1:02d} SummaryData...".format(pfac.fac.ATOMICSYMBOL[i],j))
+            summary = summary_data.SummaryData()
+            summary.write(i,j,temperatures,densities)

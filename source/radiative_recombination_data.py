@@ -61,6 +61,6 @@ class RadiativeRecombinationData:
     def write(self, atomic_number, electron_number, temperatures, densities):
         photoionization_data = self.generate(atomic_number, electron_number, temperatures, densities)
         
-        with open("../database02/{0:s}/{0:s}{1:02d}.rrc".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
+        with open("../database02/{0:s}/{0:s}{1:02d}.rrc.pi".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="w") as fout:
             for i in range(len(photoionization_data)):
                 fout.write("{0:6d} {1:3d}   {2:6d} {3:3d}  {4:6d}      {5:11.5e}   {6:10.4e}  {7:10.4e}   {8:10.4e}\n".format(photoionization_data[i]["bound_level_index"], photoionization_data[i]["bound_level_twoj"], photoionization_data[i]["ionized_level_index"], photoionization_data[i]["ionized_level_twoj"], photoionization_data[i]["l"], photoionization_data[i]["ionization_potential"], photoionization_data[i]["sigma"], photoionization_data[i]["gamma"], photoionization_data[i]["tau"]))           

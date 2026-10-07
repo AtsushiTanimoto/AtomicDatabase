@@ -18,7 +18,7 @@ class AutoionizationData:
         if electron_number==1:
             pass
         else:
-            with open("../database02/{0:s}/{0:s}{1:02d}.px".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
+            with open("../database02/{0:s}/{0:s}{1:02d}.px.tr".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
                 for line in fin.readlines():
                     data                = line.split()
                     maximum_level_index = max(maximum_level_index, int(data[0]))

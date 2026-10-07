@@ -22,7 +22,7 @@ class PhotoionizationData:
 
         for i in range(len(temperatures)):
             for j in range(len(densities)):
-                with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i02.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
+                with open("../database02/{0:s}/{0:s}{1:02d}_pop/{0:s}{1:02d}_t{2:02d}d{3:02d}i2.pop".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, i, j), mode="r") as fin:
                     for line in fin.readlines():
                         data = line.split()
                         exist_level_index.update({int(data[0])})
