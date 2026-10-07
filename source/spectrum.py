@@ -41,6 +41,6 @@ if __name__=="__main__":
     temperature_array   = config.TEMPERATURES
 
     for i in config.ATOMIC_NUMBERS:
-        for j in range(1, 1+i):
+        for j in range(1, 1+config.MAX_ELECTRON_NUMBERS[i]):
             spectrum(i, j, density_array, temperature_array)
             line_emissivity(i, j, density_array, temperature_array)

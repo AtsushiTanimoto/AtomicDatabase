@@ -21,7 +21,7 @@ python spectrum.py          # 2. pfac.spm.spectrum で準位占有数 (*_spec/*.
 python generate_database.py  # 3. database01 を読み、整形済みデータベースを database02/<元素>/ に出力
 ```
 
-- 対象元素（原子番号）は `config.py` の `ATOMIC_NUMBERS` で 3 スクリプト共通に指定する（現状は O = 8 のみ）。電子数は各スクリプト末尾の `for j in range(...)` をハードコードで書き換えて指定する。温度・密度グリッドは `config.py` の `TEMPERATURES`（eV）・`DENSITIES`（cm⁻³）で一元管理しており、`spectrum.py`・`generate_database.py`・`line_probability.py` がこれを使う（インデックス `tNN`/`dNN` でファイルを対応づけているため、ここ以外で定義しない。FAC に渡す密度は `spectrum.py` で 1e10 cm⁻³ 単位に換算する）。
+- 対象元素（原子番号）は `config.py` の `ATOMIC_NUMBERS` で 3 スクリプト共通に指定する（現状は O = 8 のみ）。含めるイオンの電子数（1 から元素ごとの最大電子数まで）は `config.py` の `MAX_ELECTRON_NUMBERS`（例 `{8:7, 26:10}`）で指定し、3 スクリプトがこれを使う。MONACO の `maxElectronsForIonized` はこの値以下にする。温度・密度グリッドは `config.py` の `TEMPERATURES`（eV）・`DENSITIES`（cm⁻³）で一元管理しており、`spectrum.py`・`generate_database.py`・`line_probability.py` がこれを使う（インデックス `tNN`/`dNN` でファイルを対応づけているため、ここ以外で定義しない。FAC に渡す密度は `spectrum.py` で 1e10 cm⁻³ 単位に換算する）。
 - 各段階は開始時に出力ディレクトリを削除してから作り直す。
 - 生成物（`*.en`, `*.tr`, `*.rr`, `*.sp`, `*.ln`, `*.pop` など）は `.gitignore` で除外されており、`database01/`・`database02/` はリポジトリに含まれない。
 

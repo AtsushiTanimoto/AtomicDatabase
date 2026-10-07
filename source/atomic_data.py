@@ -10,7 +10,7 @@ import config
 if __name__=="__main__":
     for i in config.ATOMIC_NUMBERS:
         atomic_symbol           = pfac.fac.ATOMICSYMBOL[i]
-        electron_number_array   = range(1, 1+i)
+        electron_number_array   = range(1, 1+config.MAX_ELECTRON_NUMBERS[i])
         output_dir              = f"../database01/{atomic_symbol:s}/"
         shutil.rmtree(output_dir, ignore_errors=True)
         os.makedirs(output_dir)

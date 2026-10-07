@@ -30,7 +30,7 @@ if __name__=="__main__":
         subprocess.call(f"rm -r ../database02/{atomic_symbol:s}", shell=True)
         subprocess.call(f"mkdir ../database02/{atomic_symbol:s}", shell=True)
             
-        for j in range(1, min(11, i)):
+        for j in range(1, 1+config.MAX_ELECTRON_NUMBERS[i]):
             densities     = config.DENSITIES
             temperatures  = config.TEMPERATURES
             subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_ln", shell=True)
