@@ -31,15 +31,17 @@ def spectrum(atomic_number, electron_number, densities, temperatures):
     input_dir     = "../database01/{0:s}/".format(atomic_symbol)
     output_dir    = "../database01/{0:s}/{0:s}{1:02d}_spec/".format(atomic_symbol, electron_number)
     populations   = len(temperatures)*[(1+atomic_number)*[1.0/(1+atomic_number)]]
+    ai            = 1 if electron_number>1 else 0 # H 様イオンには自動電離準位がない
     subprocess.run("rm -r {0:s}".format(output_dir), shell=True)
     subprocess.run("mkdir {0:s}".format(output_dir), shell=True)
-    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=0, ce=1, ci=1, rr=1, rrc=1)
+    pfac.spm.spectrum(neles=[electron_number], temp=temperatures, den=densities, population=populations, pref=atomic_symbol, dir0=input_dir, dir1=output_dir, nion=2, ai=ai, ce=0, ci=0, rr=1, rrc=1)
 
 
 if __name__=="__main__":
+    density_array       = 1.000e-10*numpy.logspace(0, 0,  1)
+    temperature_array   = 1.000e+00*numpy.logspace(0, 4, 41)
+
     for i in config.ATOMIC_NUMBERS:
         for j in range(1, 1+i):
-            densities      = 1e-10*numpy.logspace(0, 0,  1)
-            temperatures   = 1e+00*numpy.logspace(0, 4, 41)
-            spectrum(i, j, densities, temperatures)
-            line_emissivity(i, j, densities, temperatures)
+            spectrum(i, j, density_array, temperature_array)
+            line_emissivity(i, j, density_array, temperature_array)

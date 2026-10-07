@@ -20,7 +20,7 @@ class LineProbability:
         with open("../database02/{0:s}/{0:s}{1:02d}.rates".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number), mode="r") as fin:
             for line in fin.readlines():
                 data         = line.split()
-                coefficient += [float(data[2])]
+                coefficient += [float(data[2])+float(data[3])] # RR + DR
 
         with open("../database01/{0:s}/{0:s}{1:02d}_line/{0:s}{1:02d}a_t{2:02d}d{3:02d}i02.ln".format(pfac.fac.ATOMICSYMBOL[atomic_number], electron_number, temperature_index, density_index), mode="r") as fin:
             for line in fin.readlines():
