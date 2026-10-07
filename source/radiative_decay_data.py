@@ -1,4 +1,3 @@
-from os import minor
 import pfac.fac
 
 

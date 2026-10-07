@@ -1,4 +1,9 @@
-# Atomic Libraries
+import logging
+import subprocess
+
+import numpy
+import pfac.fac
+
 import autoionization_data
 import config
 import level_data
@@ -10,12 +15,6 @@ import radiative_decay_data
 import radiative_recombination_data
 import recombination_rate
 import temperature_density_grid
-
-# Python Libraries
-import logging
-import numpy
-import pfac.fac
-import subprocess
 
 
 if __name__=="__main__":

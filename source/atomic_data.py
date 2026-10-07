@@ -1,8 +1,10 @@
-import config
 import os
+import shutil
+
 import pfac.atom
 import pfac.fac
-import shutil
+
+import config
 
 
 if __name__=="__main__":

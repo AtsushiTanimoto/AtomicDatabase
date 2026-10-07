@@ -1,8 +1,11 @@
-import config
+import subprocess
+
 import numpy
+import pfac.crm
 import pfac.fac
 import pfac.spm
-import subprocess
+
+import config
 
 
 def line_emissivity(atomic_number, electron_number, densities, temperatures):
