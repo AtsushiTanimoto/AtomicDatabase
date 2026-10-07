@@ -1,7 +1,6 @@
 import logging
 import subprocess
 
-import numpy
 import pfac.fac
 
 import autoionization_data
@@ -32,8 +31,8 @@ if __name__=="__main__":
         subprocess.call(f"mkdir ../database02/{atomic_symbol:s}", shell=True)
             
         for j in range(1, min(11, i)):
-            densities     = numpy.logspace(0, 0,  1)
-            temperatures  = numpy.logspace(0, 4, 41)
+            densities     = config.DENSITIES
+            temperatures  = config.TEMPERATURES
             subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_ln", shell=True)
             subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_pop", shell=True)
 

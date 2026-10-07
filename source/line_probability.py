@@ -1,5 +1,6 @@
-import numpy
 import pfac.fac
+
+import config
 
 
 class LineProbability:
@@ -16,7 +17,7 @@ class LineProbability:
         atomic_symbol = pfac.fac.ATOMICSYMBOL[atomic_number]
         coefficient   = []
         line_data     = []
-        densities     = numpy.logspace(0,0,1)
+        densities     = config.DENSITIES
 
         with open(f"../database02/{atomic_symbol:s}/{atomic_symbol:s}{electron_number:02d}.rates", mode="r") as fin:
             for line in fin.readlines():

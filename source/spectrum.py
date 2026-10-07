@@ -1,6 +1,5 @@
 import subprocess
 
-import numpy
 import pfac.crm
 import pfac.fac
 import pfac.spm
@@ -38,8 +37,8 @@ def spectrum(atomic_number, electron_number, densities, temperatures):
 
 
 if __name__=="__main__":
-    density_array       = 1.000e-10*numpy.logspace(0, 0,  1)
-    temperature_array   = 1.000e+00*numpy.logspace(0, 4, 41)
+    density_array       = 1.000e-10*config.DENSITIES # FAC の密度の単位は 1e10 cm^-3
+    temperature_array   = config.TEMPERATURES
 
     for i in config.ATOMIC_NUMBERS:
         for j in range(1, 1+i):
