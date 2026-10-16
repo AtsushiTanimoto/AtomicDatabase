@@ -4,6 +4,8 @@ import pfac.crm
 import pfac.fac
 import pfac.spm
 
+import argparse
+
 import config
 
 
@@ -84,10 +86,14 @@ def collisional_spectrum(atomic_number, electron_number, densities, temperatures
 
 
 if __name__=="__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--elements", default=None, help="元素記号をカンマ区切り (既定: config.ATOMIC_NUMBERS)")
+    args = parser.parse_args()
+    atomic_numbers = [pfac.fac.ATOMICSYMBOL.index(e.strip().capitalize()) for e in args.elements.split(",")] if args.elements else config.ATOMIC_NUMBERS
     density_array       = 1.000e-10*config.DENSITIES # FAC の密度の単位は 1e10 cm^-3
     temperature_array   = config.TEMPERATURES
 
-    for i in config.ATOMIC_NUMBERS:
+    for i in atomic_numbers:
         for j in range(1, 1+config.MAX_ELECTRON_NUMBERS[i]):
             spectrum(i, j, density_array, temperature_array)
             line_emissivity(i, j, density_array, temperature_array)

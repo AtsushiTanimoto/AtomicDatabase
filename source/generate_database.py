@@ -3,7 +3,10 @@ import subprocess
 
 import pfac.fac
 
+import argparse
+
 import autoionization_data
+import collisional_excitation_data
 import config
 import level_data
 import line_probability
@@ -24,7 +27,12 @@ if __name__=="__main__":
     logger.setLevel(logging.DEBUG)
     logger.addHandler(handler)
 
-    for i in config.ATOMIC_NUMBERS:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--elements", default=None, help="元素記号をカンマ区切り (既定: config.ATOMIC_NUMBERS)")
+    args = parser.parse_args()
+    atomic_numbers = [pfac.fac.ATOMICSYMBOL.index(e.strip().capitalize()) for e in args.elements.split(",")] if args.elements else config.ATOMIC_NUMBERS
+
+    for i in atomic_numbers:
         atomic_symbol = pfac.fac.ATOMICSYMBOL[i]
 
         subprocess.call(f"rm -r ../database02/{atomic_symbol:s}", shell=True)
@@ -35,6 +43,7 @@ if __name__=="__main__":
             temperatures  = config.TEMPERATURES
             subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_ln", shell=True)
             subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_pop", shell=True)
+            subprocess.call(f"mkdir ../database02/{atomic_symbol:s}/{atomic_symbol:s}{j:02d}_lnce", shell=True)
 
             logger.info(f"{atomic_symbol:s}{j:02d} PopulationData...")
             population = population_data.PopulationData()
@@ -47,6 +56,10 @@ if __name__=="__main__":
             logger.info(f"{atomic_symbol:s}{j:02d} RecombinationRate...")
             recombination = recombination_rate.RecombinationRate()
             recombination.write(i,j,temperatures)
+
+            logger.info(f"{atomic_symbol:s}{j:02d} CollisionalExcitationData...")
+            collisional = collisional_excitation_data.CollisionalExcitationData()
+            collisional.write(i,j,temperatures,densities)
 
             logger.info(f"{atomic_symbol:s}{j:02d} AutoionizationData...")
             autoionization = autoionization_data.AutoionizationData()
